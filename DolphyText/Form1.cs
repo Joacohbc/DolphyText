@@ -98,6 +98,7 @@ namespace DolphyText
                 tabControl.SelectedTab.Text = tabControl.SelectedTab.Text.Substring(0, tabControl.SelectedTab.Text.Length - 1);
             }
         }
+        
         //Generador de rtxtBox
         public RichTextBox nuevoTxtBox()
         {
@@ -990,5 +991,11 @@ namespace DolphyText
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
         }
 
+        private void configuracionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /*
+             Aqui debe llamar a un Form, donde haya checks para configurar
+             */
+        }
     }//
 }
