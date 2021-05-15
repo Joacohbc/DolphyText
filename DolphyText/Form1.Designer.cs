@@ -36,12 +36,8 @@
             this.guardarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaVentanaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enFrenteSiempreOFFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mostrarRutaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.notasDespegablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enFrenteSiempreOFFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salirEscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edicionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,10 +76,6 @@
             this.nuevaVentanaToolStripMenuItem,
             this.mostrarRutaToolStripMenuItem,
             this.enFrenteSiempreOFFToolStripMenuItem,
-            this.configuracionesToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.toolStripSeparator3,
-            this.notasDespegablesToolStripMenuItem,
             this.toolStripSeparator2,
             this.salirEscToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
@@ -118,13 +110,6 @@
             this.nuevaVentanaToolStripMenuItem.Text = "Nueva ventana  Ctrl+N";
             this.nuevaVentanaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentanaToolStripMenuItem_Click);
             // 
-            // enFrenteSiempreOFFToolStripMenuItem
-            // 
-            this.enFrenteSiempreOFFToolStripMenuItem.Name = "enFrenteSiempreOFFToolStripMenuItem";
-            this.enFrenteSiempreOFFToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.enFrenteSiempreOFFToolStripMenuItem.Text = "Siempre en Frente(No)";
-            this.enFrenteSiempreOFFToolStripMenuItem.Click += new System.EventHandler(this.enFrenteSiempreOFFToolStripMenuItem_Click);
-            // 
             // mostrarRutaToolStripMenuItem
             // 
             this.mostrarRutaToolStripMenuItem.Name = "mostrarRutaToolStripMenuItem";
@@ -132,29 +117,12 @@
             this.mostrarRutaToolStripMenuItem.Text = "Mostrar ruta(No)";
             this.mostrarRutaToolStripMenuItem.Click += new System.EventHandler(this.mostrarRutaToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // enFrenteSiempreOFFToolStripMenuItem
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
-            // 
-            // configuracionesToolStripMenuItem
-            // 
-            this.configuracionesToolStripMenuItem.Name = "configuracionesToolStripMenuItem";
-            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.configuracionesToolStripMenuItem.Text = "Configuraciones";
-            this.configuracionesToolStripMenuItem.Click += new System.EventHandler(this.configuracionesToolStripMenuItem_Click_1);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(192, 6);
-            // 
-            // notasDespegablesToolStripMenuItem
-            // 
-            this.notasDespegablesToolStripMenuItem.Name = "notasDespegablesToolStripMenuItem";
-            this.notasDespegablesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.notasDespegablesToolStripMenuItem.Text = "Notas despegables";
-            this.notasDespegablesToolStripMenuItem.Click += new System.EventHandler(this.notasDespegablesToolStripMenuItem_Click);
+            this.enFrenteSiempreOFFToolStripMenuItem.Name = "enFrenteSiempreOFFToolStripMenuItem";
+            this.enFrenteSiempreOFFToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.enFrenteSiempreOFFToolStripMenuItem.Text = "Siempre en Frente(No)";
+            this.enFrenteSiempreOFFToolStripMenuItem.Click += new System.EventHandler(this.enFrenteSiempreOFFToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -294,10 +262,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem salirEscToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem configuracionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem notasDespegablesToolStripMenuItem;
     }
 
 }

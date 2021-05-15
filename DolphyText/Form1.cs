@@ -981,22 +981,5 @@ namespace DolphyText
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
         }
 
-        private void configuracionesToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-           /*
-           Aqui debe llamar a un Form, donde haya checks para configurar
-           -Poder activar o desactivar:
-           el guardado al final
-           lo del asterisco al no estar guardado
-            
-           */
-        }
-
-        private void notasDespegablesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-         /*
-          Aqui debe llamar a un Form y poner el respectivo texto en el
-         */
-        }
     }//
 }
