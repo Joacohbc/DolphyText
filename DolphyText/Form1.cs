@@ -364,7 +364,6 @@ namespace DolphyText
         public Label nuevoLabel()
         {
             Label lblNuevo = new Label();
-            //lblNuevo.Name = "lblPath" + (tabControl.TabCount + 1).ToString();
             lblNuevo.Name = "lblPath";
             lblNuevo.Dock = System.Windows.Forms.DockStyle.Bottom;
             lblNuevo.Visible = false;
@@ -898,33 +897,14 @@ namespace DolphyText
                     if (File.Exists(ruta.Text))//Si el tab es un archivo guardado en el PC que lo guarde
                     {
                         sw.WriteLine(ruta.Text);//Escribe la ruta del archivo
-
-
-                        if (Path.GetExtension(ruta.Text) == ".rtf")
+                        if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
                         {
-
-                            if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
+                            DialogResult op = MessageBox.Show("La ventana actual no esta guardada en su ultima version, ¿Quiere guardarla?", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                            if (op == DialogResult.Yes)
                             {
-                                DialogResult op = MessageBox.Show("La ventana actual no esta guardada en su ultima version, ¿Quiere guardarla?", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-                                if (op == DialogResult.Yes)
-                                {
-                                    guardarToolStripMenuItem1.PerformClick();
-                                }
+                                guardarToolStripMenuItem1.PerformClick();
                             }
                         }
-                        else
-                        {
-
-                            if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
-                            {
-                                DialogResult op = MessageBox.Show("La ventana actual no esta guardada en su ultima version, ¿Quiere guardarla?", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-                                if (op == DialogResult.Yes)
-                                {
-                                    guardarToolStripMenuItem1.PerformClick();
-                                }
-                            }
-                        }
-
                     }
                     else
                     {
@@ -991,11 +971,22 @@ namespace DolphyText
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
         }
 
-        private void configuracionesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void configuracionesToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            /*
-             Aqui debe llamar a un Form, donde haya checks para configurar
-             */
+           /*
+           Aqui debe llamar a un Form, donde haya checks para configurar
+           -Poder activar o desactivar:
+           el guardado al final
+           lo del asterisco al no estar guardado
+            
+           */
+        }
+
+        private void notasDespegablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+         /*
+          Aqui debe llamar a un Form y poner el respectivo texto en el
+         */
         }
     }//
 }

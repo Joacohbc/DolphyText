@@ -51,6 +51,9 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.notasDespegablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,8 +64,7 @@
             this.edicionToolStripMenuItem,
             this.formatoToolStripMenuItem,
             this.atajosTecladoToolStripMenuItem,
-            this.resultadoToolStripMenuItem,
-            this.configuracionesToolStripMenuItem});
+            this.resultadoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(634, 24);
@@ -78,6 +80,10 @@
             this.nuevaVentanaToolStripMenuItem,
             this.enFrenteSiempreOFFToolStripMenuItem,
             this.mostrarRutaToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.configuracionesToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.notasDespegablesToolStripMenuItem,
             this.toolStripSeparator2,
             this.salirEscToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
@@ -220,9 +226,26 @@
             // configuracionesToolStripMenuItem
             // 
             this.configuracionesToolStripMenuItem.Name = "configuracionesToolStripMenuItem";
-            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.configuracionesToolStripMenuItem.Text = "Configuraciones";
-            this.configuracionesToolStripMenuItem.Click += new System.EventHandler(this.configuracionesToolStripMenuItem_Click);
+            this.configuracionesToolStripMenuItem.Click += new System.EventHandler(this.configuracionesToolStripMenuItem_Click_1);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(192, 6);
+            // 
+            // notasDespegablesToolStripMenuItem
+            // 
+            this.notasDespegablesToolStripMenuItem.Name = "notasDespegablesToolStripMenuItem";
+            this.notasDespegablesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.notasDespegablesToolStripMenuItem.Text = "Notas despegables";
+            this.notasDespegablesToolStripMenuItem.Click += new System.EventHandler(this.notasDespegablesToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -271,7 +294,10 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem salirEscToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem configuracionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem notasDespegablesToolStripMenuItem;
     }
 
 }
