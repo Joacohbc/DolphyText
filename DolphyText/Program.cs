@@ -15,6 +15,7 @@ namespace DolphyText
         [STAThread]
         static void Main(string[] args)
         {
+ 
             //Comprobar si ya hay una instancia del programa
             if (System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
             {

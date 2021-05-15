@@ -13,8 +13,13 @@ namespace DolphyText
 {
     public partial class Form1 : Form
     {
+        //Rutas
         public String rutaCarpetaApp = "C:\\DolphyText";
-        public String rutaApp = "C:\\DolphyText\\tabs.txt";
+        public String rutaTabsGuardadas = "C:\\DolphyText\\tabs.txt";
+        public String rutaConfig = "C:\\DolphyText\\configuraciones.txt";
+
+        //Configuraciones
+        private List<Configuraciones> config = new List<Configuraciones>();
 
         //Metodos
         public Boolean validarTabs()
@@ -110,6 +115,7 @@ namespace DolphyText
             txtEjemplo.KeyDown += new System.Windows.Forms.KeyEventHandler(textBox_KeyDown);
             txtEjemplo.SelectionChanged += new System.EventHandler(textBox_SelectionChanged);
             txtEjemplo.TextChanged += new System.EventHandler(textBox_textChanged);
+            
             //Para poder dropear los archivos en el RichBox
             txtEjemplo.AllowDrop = true;
             txtEjemplo.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
@@ -352,7 +358,7 @@ namespace DolphyText
 
         private void textBox_textChanged(object sender, EventArgs e)
         {
-            if (tabControl.TabCount > 1)
+            if (validarTabsSinAdv())
             {
                 if (tabControl.SelectedTab.Text.LastIndexOf('*') != tabControl.SelectedTab.Text.Length - 1)
                 {
@@ -367,6 +373,7 @@ namespace DolphyText
             lblNuevo.Name = "lblPath";
             lblNuevo.Dock = System.Windows.Forms.DockStyle.Bottom;
             lblNuevo.Visible = false;
+
             return lblNuevo;
         }///
 
@@ -391,18 +398,19 @@ namespace DolphyText
             notifyIcon1.ContextMenu = menuIconito;
             notifyIcon1.Text = "DolphyText";
 
+            //Crea  las capertas y archivos que ne
             if (!Directory.Exists(rutaCarpetaApp))
             {
                 Directory.CreateDirectory(rutaCarpetaApp);
             }
 
-            if (!File.Exists(rutaApp))
+            if (!File.Exists(rutaTabsGuardadas))
             {
-                File.Create(rutaApp);
+                File.Create(rutaTabsGuardadas);
             }
             else
             {//Si existe
-                string[] tabs = File.ReadAllLines(rutaApp.ToString());
+                string[] tabs = File.ReadAllLines(rutaTabsGuardadas.ToString());
                 for (int i = 0; i < tabs.Length; i++)
                 {
                     if (File.Exists(tabs[i]))
@@ -882,13 +890,13 @@ namespace DolphyText
                 if (!Directory.Exists(rutaCarpetaApp))
                 {
                     Directory.CreateDirectory(rutaCarpetaApp);
-                    if (!File.Exists(rutaApp))
+                    if (!File.Exists(rutaTabsGuardadas))
                     {
-                        File.Create(rutaApp);
+                        File.Create(rutaTabsGuardadas);
                     }
                 }
                 //Si existe
-                StreamWriter sw = new StreamWriter(rutaApp.ToString());
+                StreamWriter sw = new StreamWriter(rutaTabsGuardadas.ToString());
                 tabControl.SelectedIndex = 0;
                 for (int i = 0; i < tabControl.TabCount; i++)
                 {
@@ -923,6 +931,8 @@ namespace DolphyText
                     tabControl.SelectedIndex++;
                 }
                 sw.Close();
+
+
                 Application.Exit();
             }
         }
