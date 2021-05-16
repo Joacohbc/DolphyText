@@ -16,6 +16,7 @@ namespace DolphyText
         //Rutas
         public String rutaCarpetaApp = "C:\\DolphyText";
         public String rutaTabsGuardadas = "C:\\DolphyText\\tabs.txt";
+        public String rutaTabsGuardadoDefault = "C:\\DolphyText\\Archivos";
         //public String rutaConfig = "C:\\DolphyText\\configuraciones.txt";
 
         //Configuraciones
@@ -541,7 +542,13 @@ namespace DolphyText
         //Abrir ventana nueva
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!Directory.Exists(rutaTabsGuardadoDefault))
+            {
+                Directory.CreateDirectory(rutaTabsGuardadoDefault);
+            }
+
             OpenFileDialog abrir = new OpenFileDialog();
+            abrir.InitialDirectory = rutaTabsGuardadoDefault;
             abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
 
             if (abrir.ShowDialog() == DialogResult.OK)
@@ -605,9 +612,14 @@ namespace DolphyText
             {
                 try
                 {
+                    if (!Directory.Exists(rutaTabsGuardadoDefault))
+                    {
+                        Directory.CreateDirectory(rutaTabsGuardadoDefault);
+                    }
 
                     SaveFileDialog guardar = new SaveFileDialog();
                     guardar.FileName = tabControl.SelectedTab.Text;
+                    guardar.InitialDirectory = rutaTabsGuardadoDefault;
                     guardar.Filter = "Archivos RTF |*.rtf|Archivos de texto|*.txt|Todos los archivos|*.*";
 
                     if (guardar.ShowDialog() == DialogResult.OK)
