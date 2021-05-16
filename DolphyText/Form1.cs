@@ -16,11 +16,11 @@ namespace DolphyText
         //Rutas
         public String rutaCarpetaApp = "C:\\DolphyText";
         public String rutaTabsGuardadas = "C:\\DolphyText\\tabs.txt";
-        public String rutaConfig = "C:\\DolphyText\\configuraciones.txt";
+        //public String rutaConfig = "C:\\DolphyText\\configuraciones.txt";
 
         //Configuraciones
-        private List<Configuraciones> config = new List<Configuraciones>();
-
+        private bool guardarVentanas = true;
+        
         //Metodos
         public Boolean validarTabs()
         {
@@ -93,6 +93,19 @@ namespace DolphyText
             {
                 MessageBox.Show("Error al abrir" + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public bool mostrarOpciones(String texto, String titulo, MessageBoxIcon icono, MessageBoxDefaultButton botonesDefault)
+        {
+            DialogResult result = MessageBox.Show(texto, titulo, MessageBoxButtons.YesNo, icono, botonesDefault);
+            if (result == DialogResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -366,6 +379,7 @@ namespace DolphyText
                 }
             }
         }
+        
         //Generador de lbl
         public Label nuevoLabel()
         {
@@ -396,7 +410,6 @@ namespace DolphyText
             itemSalir.Click += new EventHandler(itemSalir_Click);
             menuIconito.MenuItems.Add(itemSalir);
             notifyIcon1.ContextMenu = menuIconito;
-            notifyIcon1.Text = "DolphyText";
 
             //Crea  las capertas y archivos que ne
             if (!Directory.Exists(rutaCarpetaApp))
@@ -465,8 +478,8 @@ namespace DolphyText
 
             if (validarTabs())
             {
-                DialogResult result = MessageBox.Show("Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
-                if (result == DialogResult.Yes)
+
+                if (mostrarOpciones("¿Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxIcon.None, MessageBoxDefaultButton.Button2))
                 {
                     int index = tabControl.SelectedIndex - 1;
                     tabControl.Controls.Remove(tabControl.SelectedTab);
@@ -646,7 +659,7 @@ namespace DolphyText
             {
                 buscarToolStripMenuItem.Enabled = false;
                 RichTextBox richTextBox = (RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"];
-                FormBuscar formBuscar = new FormBuscar(ref this.buscarToolStripMenuItem, ref richTextBox);
+				FormBuscar formBuscar = new FormBuscar(ref this.buscarToolStripMenuItem, ref richTextBox);
                 formBuscar.Show();
             }
         }///
@@ -774,7 +787,9 @@ namespace DolphyText
             "Ctrl+Q = quitar estilo \n" +
             "Ctrl+M = convertir Mayusculas en Minusculas, y viceversa \n" +
             "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n" +
-            "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella)"
+            "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
+            "F11 = Activar/Desactivar guardado final de las ventanas \n" +
+            "F12 = Salir instantaneamente(Sin preguntar ni guardar)"
             , "Informacion");
         }///
 
@@ -803,8 +818,7 @@ namespace DolphyText
                 if (validarTabs())
                 {
 
-                    DialogResult result = MessageBox.Show("Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
-                    if (result == DialogResult.Yes)
+                    if (mostrarOpciones("¿Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxIcon.Question, MessageBoxDefaultButton.Button1))
                     {
                         int index = tabControl.SelectedIndex - 1;
                         tabControl.Controls.Remove(tabControl.SelectedTab);
@@ -842,11 +856,22 @@ namespace DolphyText
             {
                 salirEscToolStripMenuItem.PerformClick();
             }
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F11))
+            {
+                if (guardarVentanas)
+                {
+                    MessageBox.Show("Se desactivo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    guardarVentanas = false;
+                }
+                else
+                {
+                    MessageBox.Show("Se activo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    guardarVentanas = true;
+                }
+            }
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F12))
             {
-                MessageBox.Show("TabCount: " + tabControl.TabCount.ToString());
-                MessageBox.Show("SelectedIndex: " + tabControl.SelectedIndex);
-                MessageBox.Show("SelectionStart: " + ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).SelectionStart);
+                Application.Exit();
             }
 
         }
@@ -863,6 +888,8 @@ namespace DolphyText
 
             this.WindowState = FormWindowState.Minimized;
             this.Visible = false;
+
+            notifyIcon1.Visible = true;
         }
 
         //Abrir programa(Iconito)
@@ -884,8 +911,7 @@ namespace DolphyText
         //Salir y guardar pestanias
         private void salirEscToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult resultado = MessageBox.Show("¿Quiere cerrar la ventana?", "Cerrar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-            if (resultado == DialogResult.Yes)
+            if (mostrarOpciones("¿Quiere cerrar la ventana?", "Cerrar", MessageBoxIcon.Question, MessageBoxDefaultButton.Button1))
             {
                 if (!Directory.Exists(rutaCarpetaApp))
                 {
@@ -896,41 +922,42 @@ namespace DolphyText
                     }
                 }
                 //Si existe
-                StreamWriter sw = new StreamWriter(rutaTabsGuardadas.ToString());
-                tabControl.SelectedIndex = 0;
-                for (int i = 0; i < tabControl.TabCount; i++)
+                if (guardarVentanas)
                 {
-                    Label ruta = ((Label)tabControl.SelectedTab.Controls["lblPath"]);
-                    RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
-                    if (File.Exists(ruta.Text))//Si el tab es un archivo guardado en el PC que lo guarde
+                    StreamWriter sw = new StreamWriter(rutaTabsGuardadas.ToString());
+                    tabControl.SelectedIndex = 0;
+                    for (int i = 0; i < tabControl.TabCount; i++)
                     {
-                        sw.WriteLine(ruta.Text);//Escribe la ruta del archivo
-                        if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
+                        Label ruta = ((Label)tabControl.SelectedTab.Controls["lblPath"]);
+                        RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
+                        if (File.Exists(ruta.Text))//Si el tab es un archivo guardado en el PC que lo guarde
                         {
-                            DialogResult op = MessageBox.Show("La ventana actual no esta guardada en su ultima version, ¿Quiere guardarla?", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-                            if (op == DialogResult.Yes)
+                            sw.WriteLine(ruta.Text);//Escribe la ruta del archivo
+                            if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
                             {
-                                guardarToolStripMenuItem1.PerformClick();
+                                if (mostrarOpciones("La ventana actual no esta guardada en su ultima version, ¿Quiere guardarla?", "Guardar", MessageBoxIcon.Question, MessageBoxDefaultButton.Button1))
+                                {
+                                    guardarToolStripMenuItem1.PerformClick();
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        DialogResult op = MessageBox.Show("La ventana actual no esta guardada, ¿Quiere guardarla?", "Guardar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-                        if (op == DialogResult.Yes)
+                        else
                         {
-                            guardarComoToolStripMenuItem.PerformClick();
-                            if (File.Exists(ruta.Text))
+                            if (mostrarOpciones("La ventana actual no esta guardada, ¿Quiere guardarla?", "Guardar", MessageBoxIcon.Question, MessageBoxDefaultButton.Button1))
                             {
-                                sw.WriteLine(ruta.Text);
+                                guardarComoToolStripMenuItem.PerformClick();
+                                if (File.Exists(ruta.Text))
+                                {
+                                    sw.WriteLine(ruta.Text);
+                                }
+
                             }
-
                         }
-                    }
 
-                    tabControl.SelectedIndex++;
+                        tabControl.SelectedIndex++;
+                    }
+                    sw.Close();
                 }
-                sw.Close();
 
 
                 Application.Exit();

@@ -38,6 +38,7 @@
             this.nuevaVentanaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mostrarRutaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enFrenteSiempreOFFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salirEscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edicionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +77,7 @@
             this.nuevaVentanaToolStripMenuItem,
             this.mostrarRutaToolStripMenuItem,
             this.enFrenteSiempreOFFToolStripMenuItem,
+            this.configuracionesToolStripMenuItem,
             this.toolStripSeparator2,
             this.salirEscToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
@@ -123,6 +125,11 @@
             this.enFrenteSiempreOFFToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.enFrenteSiempreOFFToolStripMenuItem.Text = "Siempre en Frente(No)";
             this.enFrenteSiempreOFFToolStripMenuItem.Click += new System.EventHandler(this.enFrenteSiempreOFFToolStripMenuItem_Click);
+            // 
+            // configuracionesToolStripMenuItem
+            // 
+            this.configuracionesToolStripMenuItem.Name = "configuracionesToolStripMenuItem";
+            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             // 
             // toolStripSeparator2
             // 
@@ -211,7 +218,8 @@
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "DolphyText";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
@@ -262,6 +270,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem salirEscToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem configuracionesToolStripMenuItem;
     }
 
 }
