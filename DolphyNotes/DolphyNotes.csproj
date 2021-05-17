@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BEDAC795-DDB5-43B9-B5DD-F125192CDC90}</ProjectGuid>
+    <ProjectGuid>{4F814F66-FF63-425F-8DD1-AD881B3A8A33}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DolphyText</RootNamespace>
-    <AssemblyName>DolphyText</AssemblyName>
+    <RootNamespace>DolphyNotes</RootNamespace>
+    <AssemblyName>DolphyNotes</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Joaco\Desktop\Programa\DolphyText\</PublishUrl>
+    <PublishUrl>C:\Users\Joaco\Desktop\Programa\DolphyNote\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -49,24 +49,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>EAB8CC1D94FF2F524C150830C8B04A65B22524E5</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>85A6C296EA9FD5093330DFECA82D85CDFFC6F0D4</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>DolphyText_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>DolphyNotes_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
-    <Win32Resource>
-    </Win32Resource>
-  </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
@@ -85,26 +77,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuraciones.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FormNotas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBuscar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormBuscar.Designer.cs">
-      <DependentUpon>FormBuscar.cs</DependentUpon>
+    <Compile Include="FormNotas.Designer.cs">
+      <DependentUpon>FormNotas.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBuscar.resx">
-      <DependentUpon>FormBuscar.cs</DependentUpon>
+    <EmbeddedResource Include="FormNotas.resx">
+      <DependentUpon>FormNotas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -115,7 +97,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="DolphyText_TemporaryKey.pfx" />
+    <None Include="DolphyNotes_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,12 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DolphyNotes\DolphyNotes.csproj">
-      <Project>{4f814f66-ff63-425f-8dd1-ad881b3a8a33}</Project>
-      <Name>DolphyNotes</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DolphyNotes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -801,6 +802,7 @@ namespace DolphyText
             "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n" +
             "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
             "F11 = Activar/Desactivar guardado final de las ventanas \n" +
+            "F1 = Abrir una nota despegable \n" +
             "F12 = Salir instantaneamente(Sin preguntar ni guardar)"
             , "Informacion");
         }///
@@ -880,6 +882,10 @@ namespace DolphyText
                     MessageBox.Show("Se activo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     guardarVentanas = true;
                 }
+            }
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
+            {
+                abrirNotaDespegableToolStripMenuItem.PerformClick();
             }
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F12))
             {
@@ -1008,6 +1014,7 @@ namespace DolphyText
                     else
                     {
                         abrirArchivos(file);
+                        quitarAsterisco();
                     }
                 }
             }
@@ -1019,6 +1026,12 @@ namespace DolphyText
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
         }
-
+            
+        //Abrir notas despegables
+        private void abrirNotaDespegableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormNotas nota = new FormNotas();
+            nota.Show();
+        }
     }//
 }

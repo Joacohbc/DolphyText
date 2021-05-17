@@ -50,6 +50,8 @@
             this.resultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.abrirNotaDespegableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +78,8 @@
             this.nuevaVentanaToolStripMenuItem,
             this.mostrarRutaToolStripMenuItem,
             this.enFrenteSiempreOFFToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.abrirNotaDespegableToolStripMenuItem,
             this.toolStripSeparator2,
             this.salirEscToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
@@ -216,6 +220,18 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
+            // abrirNotaDespegableToolStripMenuItem
+            // 
+            this.abrirNotaDespegableToolStripMenuItem.Name = "abrirNotaDespegableToolStripMenuItem";
+            this.abrirNotaDespegableToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.abrirNotaDespegableToolStripMenuItem.Text = "Abrir nota despegable";
+            this.abrirNotaDespegableToolStripMenuItem.Click += new System.EventHandler(this.abrirNotaDespegableToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -263,6 +279,8 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem salirEscToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem abrirNotaDespegableToolStripMenuItem;
     }
 
 }
