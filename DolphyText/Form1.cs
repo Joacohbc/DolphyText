@@ -576,6 +576,9 @@ namespace DolphyText
                         if (Path.GetExtension(ruta) == ".rtf")
                         {
                             txtTexto.SaveFile(ruta);
+
+                            //Quito la marca de no guardado
+                            quitarAsterisco();
                         }
                         else if (Path.GetExtension(ruta) == ".txt")
                         {
@@ -583,6 +586,8 @@ namespace DolphyText
                             sw.WriteLine(txtTexto.Text);
                             sw.Close();
 
+                            //Quito la marca de no guardado
+                            quitarAsterisco();
                         }
                         else
                         {
@@ -636,6 +641,9 @@ namespace DolphyText
                             tabControl.SelectedTab.Text = Path.GetFileName(guardar.FileName);
                             lblRuta.Text = guardar.FileName;
 
+                            //Quito la marca de no guardado
+                            quitarAsterisco();
+
                         }
                         else if (Path.GetExtension(guardar.FileName) == ".txt")
                         {
@@ -647,6 +655,8 @@ namespace DolphyText
                             tabControl.SelectedTab.Text = Path.GetFileName(guardar.FileName);
                             lblRuta.Text = guardar.FileName;
 
+                            //Quito la marca de no guardado
+                            quitarAsterisco();
                         }
                         else
                         {
@@ -1014,6 +1024,8 @@ namespace DolphyText
                     else
                     {
                         abrirArchivos(file);
+
+                        //Quito la marca de no guardado
                         quitarAsterisco();
                     }
                 }

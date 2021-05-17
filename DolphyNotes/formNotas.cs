@@ -322,6 +322,11 @@ namespace DolphyNotes
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
 
+        private void txtNotas_TextChanged(object sender, EventArgs e)
+        {
+            if (this.Text.ElementAt(0) != '*') this.Text = "*" + this.Text;
+        }
+
         //Abrir ventana nueva
         private void abrirNota()
         {
@@ -345,11 +350,16 @@ namespace DolphyNotes
                     {
                         //Cargo el RTF en el RichTextBox con texto con estilo
                         txtNotas.LoadFile(abrir.FileName);
+                        rutaDondeEstaGuardado = abrir.FileName;
+                        this.Text += ": " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
                     }
                     else if (Path.GetExtension(abrir.FileName) == ".txt")
                     {
                         //Cargo el RTF en el RichTextBox con texto simple
                         txtNotas.Text = sr.ReadToEnd();
+                        rutaDondeEstaGuardado = abrir.FileName;
+                        this.Text += ": " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
+
                     }
                     else
                     {
@@ -357,7 +367,6 @@ namespace DolphyNotes
                     }
                     sr.Close();//Para que deje de usar el archivo
 
-                    rutaDondeEstaGuardado = abrir.FileName;
                 }
             }
             catch (Exception ex)
@@ -380,6 +389,9 @@ namespace DolphyNotes
                     if (Path.GetExtension(rutaDondeEstaGuardado) == ".rtf")
                     {
                         txtNotas.SaveFile(rutaDondeEstaGuardado);
+
+                        //Quito la marca de no guardado
+                        quitarAsterico();
                     }
                     else if (Path.GetExtension(rutaDondeEstaGuardado) == ".txt")
                     {
@@ -387,6 +399,8 @@ namespace DolphyNotes
                         sw.WriteLine(txtNotas.Text);
                         sw.Close();
 
+                        //Quito la marca de no guardado
+                        quitarAsterico();
                     }
                     else
                     {
@@ -430,6 +444,10 @@ namespace DolphyNotes
                     {
                         txtNotas.SaveFile(guardar.FileName);
                         rutaDondeEstaGuardado = guardar.FileName;
+                        this.Text += ": " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
+
+                        //Quito la marca de no guardado
+                        quitarAsterico();
                     }
                     else if (Path.GetExtension(guardar.FileName) == ".txt")
                     {
@@ -437,6 +455,10 @@ namespace DolphyNotes
                         sw.WriteLine(txtNotas.Text);
                         sw.Close();
                         rutaDondeEstaGuardado = guardar.FileName;
+                        this.Text += ": " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
+
+                        //Quito la marca de no guardado
+                        quitarAsterico();
                     }
                     else
                     {
@@ -452,5 +474,12 @@ namespace DolphyNotes
                 MessageBox.Show(ex.ToString());
             }
         }///
+        
+        //Quitar asterisco
+        private void quitarAsterico()
+        {
+            if (this.Text.ElementAt(0)  == '*') this.Text = this.Text.Substring(1, this.Text.Length-1);
+        }///
+
     }
 }

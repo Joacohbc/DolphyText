@@ -46,6 +46,7 @@
             this.txtNotas.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.txtNotas.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.txtNotas.SelectionChanged += new System.EventHandler(this.txtNotas_SelectionChanged);
+            this.txtNotas.TextChanged += new System.EventHandler(this.txtNotas_TextChanged);
             this.txtNotas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNotas_KeyDown);
             this.txtNotas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNuevo_KeyPress);
             // 
