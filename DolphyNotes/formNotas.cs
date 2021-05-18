@@ -13,9 +13,23 @@ namespace DolphyNotes
 {
     public partial class FormNotas : Form
     {
-
-        public String rutaNotasGuardadasDefault = "C:\\DolphyText\\Notas";
+        private static String rutaRaiz = "C:\\DolphyCompany";
+        private String rutaNotasGuardadasDefault = rutaRaiz + "\\DolphyNotes\\Notes";
         private String rutaDondeEstaGuardado = "";
+
+        private void crearCarpetas()
+        {
+            if (!Directory.Exists(rutaRaiz))
+            {
+                Directory.CreateDirectory(rutaRaiz);
+            }
+
+            if (!Directory.Exists(rutaNotasGuardadasDefault))
+            {
+                Directory.CreateDirectory(rutaNotasGuardadasDefault);
+            }
+
+        }
 
         public FormNotas()
         {
@@ -330,18 +344,15 @@ namespace DolphyNotes
         //Abrir ventana nueva
         private void abrirNota()
         {
-            if (!Directory.Exists(rutaNotasGuardadasDefault))
-            {
-                Directory.CreateDirectory(rutaNotasGuardadasDefault);
-            }
-
-            OpenFileDialog abrir = new OpenFileDialog();
-            abrir.InitialDirectory = rutaNotasGuardadasDefault;
-            abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
+            crearCarpetas();
 
             try
             {
-                 if(abrir.ShowDialog() == DialogResult.OK)
+                OpenFileDialog abrir = new OpenFileDialog();
+                abrir.InitialDirectory = rutaNotasGuardadasDefault;
+                abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
+
+                if (abrir.ShowDialog() == DialogResult.OK)
                 {
 
                     //Declaro el lector
@@ -427,10 +438,7 @@ namespace DolphyNotes
         {
             try
             {
-                if (!Directory.Exists(rutaNotasGuardadasDefault))
-                {
-                    Directory.CreateDirectory(rutaNotasGuardadasDefault);
-                }
+                crearCarpetas();
 
                 SaveFileDialog guardar = new SaveFileDialog();
                 guardar.FileName = Path.GetFileNameWithoutExtension(rutaNotasGuardadasDefault);
@@ -479,7 +487,13 @@ namespace DolphyNotes
         private void quitarAsterico()
         {
             if (this.Text.ElementAt(0)  == '*') this.Text = this.Text.Substring(1, this.Text.Length-1);
-        }///
+        }
+
+        //Cuando carga
+        private void FormNotas_Load(object sender, EventArgs e)
+        {
+            crearCarpetas();
+        }
 
     }
 }

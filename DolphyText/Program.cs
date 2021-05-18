@@ -19,7 +19,7 @@ namespace DolphyText
             //Comprobar si ya hay una instancia del programa
             if (System.Diagnostics.Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
             {
-                MessageBox.Show("DolphyNet ya se esta ejecuntado", "DolphyText", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("DolphyNet ya se esta ejecutando", "DolphyText", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else
             {

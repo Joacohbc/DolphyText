@@ -15,10 +15,10 @@ namespace DolphyText
     public partial class Form1 : Form
     {
         //Rutas
-        public String rutaCarpetaApp = "C:\\DolphyText";
-        public String rutaTabsGuardadas = "C:\\DolphyText\\tabs.txt";
-        public String rutaTabsGuardadoDefault = "C:\\DolphyText\\Archivos";
-        //public String rutaConfig = "C:\\DolphyText\\configuraciones.txt";
+        private static String rutaRaiz = "C:\\DolphyCompany"; 
+        private static String rutaCarpeta = rutaRaiz + "\\DolphyText";
+        private String rutaTabsGuardadas =  rutaCarpeta + "\\tabs.txt";
+        private String rutaTabsGuardadoDefault = rutaCarpeta + "\\File";
 
         //Configuraciones
         private bool guardarVentanas = true;
@@ -117,6 +117,34 @@ namespace DolphyText
             {
                 tabControl.SelectedTab.Text = tabControl.SelectedTab.Text.Substring(0, tabControl.SelectedTab.Text.Length - 1);
             }
+        }
+        
+        public void crearCarpetas()
+        {
+            //Crea de DolphyCompany
+            if (!Directory.Exists(rutaRaiz))
+            {
+                Directory.CreateDirectory(rutaRaiz);
+            }
+
+            //Crea de DolphyText
+            if (!Directory.Exists(rutaCarpeta))
+            {
+                Directory.CreateDirectory(rutaCarpeta);
+            }
+
+            //Crea archivo donde se guardan las tabs
+            if (!File.Exists(rutaTabsGuardadas))
+            {
+                File.Create(rutaTabsGuardadas);
+            }
+
+            //Crea la carpeta default donde se guardan las tabs
+            if (!Directory.Exists(rutaTabsGuardadoDefault))
+            {
+               Directory.CreateDirectory(rutaTabsGuardadoDefault);
+            }
+
         }
         
         //Generador de rtxtBox
@@ -423,18 +451,11 @@ namespace DolphyText
 
             notifyIcon1.ContextMenu = menuIconito;
 
-            //Crea  las capertas y archivos que ne
-            if (!Directory.Exists(rutaCarpetaApp))
+            crearCarpetas();
+            
+            //Creo el archivo de guardado de tabs
+            if (File.Exists(rutaTabsGuardadas))
             {
-                Directory.CreateDirectory(rutaCarpetaApp);
-            }
-
-            if (!File.Exists(rutaTabsGuardadas))
-            {
-                File.Create(rutaTabsGuardadas);
-            }
-            else
-            {//Si existe
                 string[] tabs = File.ReadAllLines(rutaTabsGuardadas.ToString());
                 for (int i = 0; i < tabs.Length; i++)
                 {
@@ -559,18 +580,24 @@ namespace DolphyText
         //Abrir ventana nueva
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(rutaTabsGuardadoDefault))
+            crearCarpetas();
+            try
             {
-                Directory.CreateDirectory(rutaTabsGuardadoDefault);
+
+                OpenFileDialog abrir = new OpenFileDialog();
+                abrir.InitialDirectory = rutaTabsGuardadoDefault;
+                abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
+
+                if (abrir.ShowDialog() == DialogResult.OK)
+                {
+                    abrirArchivos(abrir.FileName);
+                }
+
             }
-
-            OpenFileDialog abrir = new OpenFileDialog();
-            abrir.InitialDirectory = rutaTabsGuardadoDefault;
-            abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
-
-            if (abrir.ShowDialog() == DialogResult.OK)
+            catch(Exception ex)
             {
-                abrirArchivos(abrir.FileName);
+                MessageBox.Show("Error al abrir", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString());
             }
 
         }///
@@ -584,6 +611,7 @@ namespace DolphyText
                 try
                 {
                     String ruta = ((Label)tabControl.SelectedTab.Controls["lblPath"]).Text;
+
                     if (File.Exists(ruta))
                     {//Si el archivo existe
                         quitarAsterisco();
@@ -592,7 +620,6 @@ namespace DolphyText
                         if (Path.GetExtension(ruta) == ".rtf")
                         {
                             txtTexto.SaveFile(ruta);
-
                             //Quito la marca de no guardado
                             quitarAsterisco();
                         }
@@ -634,10 +661,7 @@ namespace DolphyText
             {
                 try
                 {
-                    if (!Directory.Exists(rutaTabsGuardadoDefault))
-                    {
-                        Directory.CreateDirectory(rutaTabsGuardadoDefault);
-                    }
+                    crearCarpetas();
 
                     SaveFileDialog guardar = new SaveFileDialog();
                     guardar.FileName = tabControl.SelectedTab.Text;
@@ -958,14 +982,8 @@ namespace DolphyText
         {
             if (mostrarOpciones("¿Quiere cerrar la ventana?", "Cerrar", MessageBoxIcon.Question, MessageBoxDefaultButton.Button1))
             {
-                if (!Directory.Exists(rutaCarpetaApp))
-                {
-                    Directory.CreateDirectory(rutaCarpetaApp);
-                    if (!File.Exists(rutaTabsGuardadas))
-                    {
-                        File.Create(rutaTabsGuardadas);
-                    }
-                }
+                crearCarpetas();
+
                 //Si existe
                 if (guardarVentanas)
                 {

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormNotas));
             this.txtNotas = new System.Windows.Forms.RichTextBox();
             this.lblCompletar = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -69,10 +70,12 @@
             this.ClientSize = new System.Drawing.Size(253, 247);
             this.Controls.Add(this.lblCompletar);
             this.Controls.Add(this.txtNotas);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormNotas";
             this.ShowIcon = false;
-            this.Text = "DolphyNotas";
+            this.Text = "DolphyNotes";
+            this.Load += new System.EventHandler(this.FormNotas_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.ResumeLayout(false);
