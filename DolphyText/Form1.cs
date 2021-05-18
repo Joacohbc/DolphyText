@@ -408,9 +408,19 @@ namespace DolphyText
         {
             //Que agregue el menu la iconinito
             ContextMenu menuIconito = new ContextMenu();
+
+            MenuItem itemMostrar = new MenuItem("Mostrar/Ocultar");
+            itemMostrar.Click += new EventHandler(notifyIcon1_DoubleClick);
+            menuIconito.MenuItems.Add(itemMostrar);
+
+            MenuItem itemAbrirNota = new MenuItem("Abrir nota despegable");
+            itemAbrirNota.Click += new EventHandler(itemAbrirNota_Click);
+            menuIconito.MenuItems.Add(itemAbrirNota);
+
             MenuItem itemSalir = new MenuItem("Salir");
             itemSalir.Click += new EventHandler(itemSalir_Click);
             menuIconito.MenuItems.Add(itemSalir);
+
             notifyIcon1.ContextMenu = menuIconito;
 
             //Crea  las capertas y archivos que ne
@@ -453,6 +463,12 @@ namespace DolphyText
         private void itemSalir_Click(object Sender, EventArgs e)
         {
             salirEscToolStripMenuItem.PerformClick();
+        }
+
+        //Abrir nota despegable
+        private void itemAbrirNota_Click(object Sender, EventArgs e)
+        {
+            abrirNotaDespegableToolStripMenuItem.PerformClick();
         }
 
         //Nueva ventana
@@ -921,7 +937,7 @@ namespace DolphyText
         }
 
         //Abrir programa(Iconito)
-        private void notifyIcon1_Click(object sender, EventArgs e)
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized && !this.Visible)
             {
@@ -934,6 +950,7 @@ namespace DolphyText
                 this.Visible = false;
                 this.WindowState = FormWindowState.Minimized;
             }
+        
         }///
 
         //Salir y guardar pestanias
@@ -1045,5 +1062,6 @@ namespace DolphyText
             FormNotas nota = new FormNotas();
             nota.Show();
         }
+
     }//
 }
