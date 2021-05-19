@@ -72,6 +72,7 @@
             this.Controls.Add(this.txtNotas);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(245, 40);
             this.Name = "FormNotas";
             this.ShowIcon = false;
             this.Text = "DolphyNotes";

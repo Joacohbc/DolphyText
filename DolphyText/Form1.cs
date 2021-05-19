@@ -15,7 +15,7 @@ namespace DolphyText
     public partial class Form1 : Form
     {
         //Rutas
-        private static String rutaRaiz = "C:\\DolphyCompany"; 
+        private static String rutaRaiz = "C:\\DolphyCompany";                
         private static String rutaCarpeta = rutaRaiz + "\\DolphyText";
         private String rutaTabsGuardadas =  rutaCarpeta + "\\tabs.txt";
         private String rutaTabsGuardadoDefault = rutaCarpeta + "\\File";
@@ -408,7 +408,7 @@ namespace DolphyText
                     tabControl.SelectedTab.Text += "*";
                 }
             }
-        }
+        }///
         
         //Generador de lbl
         public Label nuevoLabel()
@@ -851,12 +851,15 @@ namespace DolphyText
             "Ctrl+M = convertir Mayusculas en Minusculas, y viceversa \n" +
             "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n" +
             "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
+            "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
             "F11 = Activar/Desactivar guardado final de las ventanas \n" +
             "F1 = Abrir una nota despegable \n" +
             "F12 = Salir instantaneamente(Sin preguntar ni guardar)"
             , "Informacion");
         }///
 
+        TabPage tabGuardada;
+        int indexGuardada = -1;
         //Teclas
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -941,6 +944,27 @@ namespace DolphyText
             {
                 Application.Exit();
             }
+            else if(Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.T))
+            {
+                if (validarTabsSinAdv())
+                {
+                    if (tabControl.SelectedTab != tabGuardada && tabGuardada != null && indexGuardada > -1)
+                    {
+                        tabControl.TabPages[indexGuardada] = tabControl.TabPages[tabControl.SelectedIndex];
+                        tabControl.TabPages[tabControl.SelectedIndex] = tabGuardada;
+
+                        tabGuardada = null;
+                        indexGuardada = -1;
+                    }
+                    else
+                    {
+                        tabGuardada = tabControl.SelectedTab;
+                        indexGuardada = tabControl.SelectedIndex;
+                    }
+                }
+
+            }
+
 
         }
 
@@ -1081,5 +1105,11 @@ namespace DolphyText
             nota.Show();
         }
 
+        //Cambiar Orden
+        private void cambiarOrdenDeLasVentanasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormOrdenTabs formOrdenTabs = new FormOrdenTabs(ref tabControl);
+            formOrdenTabs.ShowDialog();
+        }
     }//
 }

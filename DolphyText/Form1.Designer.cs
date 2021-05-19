@@ -42,7 +42,7 @@
             this.abrirNotaDespegableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salirEscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.edicionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.herramientaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambiarFuenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,7 @@
             this.resultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,13 +60,13 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.edicionToolStripMenuItem,
+            this.herramientaToolStripMenuItem,
             this.formatoToolStripMenuItem,
             this.atajosTecladoToolStripMenuItem,
             this.resultadoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(634, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(699, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -152,13 +153,14 @@
             this.salirEscToolStripMenuItem.Text = "Salir                      Esc";
             this.salirEscToolStripMenuItem.Click += new System.EventHandler(this.salirEscToolStripMenuItem_Click);
             // 
-            // edicionToolStripMenuItem
+            // herramientaToolStripMenuItem
             // 
-            this.edicionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buscarToolStripMenuItem});
-            this.edicionToolStripMenuItem.Name = "edicionToolStripMenuItem";
-            this.edicionToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.edicionToolStripMenuItem.Text = "Edicion";
+            this.herramientaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buscarToolStripMenuItem,
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem});
+            this.herramientaToolStripMenuItem.Name = "herramientaToolStripMenuItem";
+            this.herramientaToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.herramientaToolStripMenuItem.Text = "Herramientas";
             // 
             // buscarToolStripMenuItem
             // 
@@ -220,7 +222,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(634, 426);
+            this.tabControl.Size = new System.Drawing.Size(699, 345);
             this.tabControl.TabIndex = 2;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             this.tabControl.DoubleClick += new System.EventHandler(this.tabControl_DoubleClick);
@@ -232,18 +234,26 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
+            // cambiarOrdenDeLasVentanasToolStripMenuItem
+            // 
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Name = "cambiarOrdenDeLasVentanasToolStripMenuItem";
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Text = "Cambiar orden de las ventanas";
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Click += new System.EventHandler(this.cambiarOrdenDeLasVentanasToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 450);
+            this.ClientSize = new System.Drawing.Size(699, 369);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(340, 64);
             this.Name = "Form1";
             this.Text = "DolphyText";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -263,7 +273,7 @@
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guardarComoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem edicionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem herramientaToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl;
         public System.Windows.Forms.ToolStripMenuItem nuevaVentanaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem formatoToolStripMenuItem;
@@ -281,6 +291,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem abrirNotaDespegableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cambiarOrdenDeLasVentanasToolStripMenuItem;
     }
 
 }

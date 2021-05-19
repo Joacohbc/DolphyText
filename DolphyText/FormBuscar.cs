@@ -45,11 +45,6 @@ namespace DolphyText
             }
         }
 
-        private void chkDistinguir_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void FormBuscar_FormClosed(object sender, FormClosedEventArgs e)
         {
             tsmiBuscar.Enabled = true;
@@ -114,11 +109,6 @@ namespace DolphyText
         {
             txtBuscar.Clear();
             txtRemplazar.Clear();
-        }
-
-        private void FormBuscar_Load(object sender, EventArgs e)
-        {
-
         }
     }///
 }
