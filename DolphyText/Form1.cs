@@ -323,26 +323,42 @@ namespace DolphyText
                 {
                     if (!String.IsNullOrEmpty(txtTexto.SelectedText))
                     {
+                        int[] indexs = { txtTexto.SelectionStart, txtTexto.SelectedText.Length };
                         String textoNuevo = "";
-                        if (Char.IsLower(txtTexto.SelectedText[0]))
-                        {
-                            foreach (char c in txtTexto.SelectedText)
-                            {
-                                textoNuevo += Char.ToUpper(c);
-                            }
-                            txtTexto.SelectedText = textoNuevo;
-                        }
-                        else
-                        {
-                            foreach (char c in txtTexto.SelectedText)
-                            {
-                                textoNuevo += Char.ToLower(c);
-                            }
-                            txtTexto.SelectedText = textoNuevo;
-                        }
 
+                        /*El for esta por si el primer caracter no es necesariamente una Letter, sino por ejemplo
+                         un guion o punto, que siga con el siguiente para saber si es Letter*/
+                        for (int i = 0; i < txtTexto.SelectedText.Length; i++)
+                        {
+                            //Si si es una letter
+                            if (Char.IsLetter(txtTexto.SelectedText[i]))
+                            {
+                                if (Char.IsLower(txtTexto.SelectedText[i]))
+                                {
+                                    foreach (char c in txtTexto.SelectedText)
+                                    {
+                                        textoNuevo += Char.ToUpper(c);
+                                    }
+                                    txtTexto.SelectedText = textoNuevo;
+                                }
+                                else
+                                {
+                                    foreach (char c in txtTexto.SelectedText)
+                                    {
+                                        textoNuevo += Char.ToLower(c);
+                                    }
+                                    txtTexto.SelectedText = textoNuevo;
+                                }
+
+                                //Pongo la seccion donde estaba
+                                txtTexto.SelectionStart = indexs[0];
+                                txtTexto.SelectionLength = indexs[1];
+
+                                //Y salgo del For
+                                break;
+                            }
+                        }
                     }
-
                 }
                 //Quitar estilos
                 else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Q))
