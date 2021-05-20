@@ -22,7 +22,11 @@ namespace DolphyText
 
         //Configuraciones
         private bool guardarVentanas = true;
-        
+
+        //Variable para el cambio de orden de tabs
+        TabPage tabGuardada;
+        int indexGuardada = -1;
+
         //Metodos
         public Boolean validarTabs()
         {
@@ -145,6 +149,36 @@ namespace DolphyText
                Directory.CreateDirectory(rutaTabsGuardadoDefault);
             }
 
+        }
+
+        private void eliminarVentana(MessageBoxDefaultButton defaultButton)
+        {
+            if (validarTabs())
+            {
+
+                if (mostrarOpciones("¿Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxIcon.None, defaultButton))
+                {
+                    int index = tabControl.SelectedIndex - 1;
+                    tabControl.Controls.Remove(tabControl.SelectedTab);
+                    if (index > 0)
+                    {
+                        //Que se vaya el index al anterior
+                        tabControl.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        /*
+                         Sirve para que cuando se borre el primer tab, que no quede en la "nada" 
+                         sino en el siguiente a ese
+                         */
+                        tabControl.SelectedIndex = index + 1;
+                    }
+                    /*Por si cierra la tab que se selecciono para cambiar de lugar
+                     que no tire un error*/
+                    tabGuardada = null;
+                    indexGuardada = -1;
+                }
+            }
         }
         
         //Generador de rtxtBox
@@ -421,10 +455,9 @@ namespace DolphyText
             return lblNuevo;
         }///
 
-        ////////////////////////
-        /*Resto del programa:*/
-        ///////////////////////
 
+        /*==========================================================================================Resto del programa==========================================================================================*/
+        
         //Iniciar programa
         public Form1()
         {
@@ -514,30 +547,7 @@ namespace DolphyText
         //Borrar ventana
         private void tabControl_DoubleClick(object sender, EventArgs e)
         {
-
-            if (validarTabs())
-            {
-
-                if (mostrarOpciones("¿Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxIcon.None, MessageBoxDefaultButton.Button2))
-                {
-                    int index = tabControl.SelectedIndex - 1;
-                    tabControl.Controls.Remove(tabControl.SelectedTab);
-                    if (index > 0)
-                    {
-                        //Que se vaya el index al anterior
-                        tabControl.SelectedIndex = index;
-                    }
-                    else
-                    {
-                        /*
-                         Sirve para que cuando se borre el primer tab, que no quede en la "nada" 
-                         sino en el siguiente a ese
-                         */
-                        tabControl.SelectedIndex = index + 1;
-                    }
-                }
-
-            }
+            eliminarVentana(MessageBoxDefaultButton.Button2);
         }///
 
         //Cambiar fuente
@@ -847,82 +857,66 @@ namespace DolphyText
             "Ctrl+U = Subrayado \n" +
             "Ctrl+K = Italica \n" +
             "Ctrl+T = Tachado \n" +
-            "Ctrl+Q = quitar estilo \n" +
-            "Ctrl+M = convertir Mayusculas en Minusculas, y viceversa \n" +
+            "Ctrl+Q = Quitar estilo \n" +
+            "Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
             "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n" +
             "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
             "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
             "F11 = Activar/Desactivar guardado final de las ventanas \n" +
             "F1 = Abrir una nota despegable \n" +
             "F12 = Salir instantaneamente(Sin preguntar ni guardar)"
-            , "Informacion");
+            , "Combinaciones de teclas", MessageBoxButtons.OK,MessageBoxIcon.None);
         }///
 
-        TabPage tabGuardada;
-        int indexGuardada = -1;
         //Teclas
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            //Nueva ventana
             if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.N))
             {
                 nuevaVentanaToolStripMenuItem.PerformClick();
             }
+            //Guardar
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.S))
             {
                 guardarToolStripMenuItem1.PerformClick();
             }
+            //Abrir
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.O))
             {
                 abrirToolStripMenuItem.PerformClick();
             }
+            //Buscar
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.F))
             {
                 buscarToolStripMenuItem.PerformClick();
             }
+            //Cerrar ventana
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.W))
             {
-
-                if (validarTabs())
-                {
-
-                    if (mostrarOpciones("¿Seguro quiere cerrar la ventana \"" + tabControl.SelectedTab.Text + "\"?", "Cerrar", MessageBoxIcon.Question, MessageBoxDefaultButton.Button1))
-                    {
-                        int index = tabControl.SelectedIndex - 1;
-                        tabControl.Controls.Remove(tabControl.SelectedTab);
-                        if (index > 0)
-                        {
-                            //Que se vaya el index al anterior
-                            tabControl.SelectedIndex = index;
-                        }
-                        else
-                        {
-                            /*
-                             Sirve para que cuando se borre el primer tab, que no quede en la "nada" 
-                             sino en el siguiente a ese
-                             */
-                            tabControl.SelectedIndex = index + 1;
-                        }
-                    }
-
-                }
-
+                eliminarVentana(MessageBoxDefaultButton.Button1);
             }
+            //Cambiar fuente
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.F))
             {
                 cambiarFuenteToolStripMenuItem.PerformClick();
             }
+            //Cambiar color fuente
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.C))
             {
                 colorToolStripMenuItem.PerformClick();
             }
+            //Cambiar color fondo
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.B))
             {
                 colorDeFondoToolStripMenuItem.PerformClick();
             }
+            //Salir
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Escape))
             {
                 salirEscToolStripMenuItem.PerformClick();
             }
+            //Activar/Desactivar guardado de ventanas final
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F11))
             {
                 if (guardarVentanas)
@@ -936,22 +930,27 @@ namespace DolphyText
                     guardarVentanas = true;
                 }
             }
+            //Abri nota
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
             {
                 abrirNotaDespegableToolStripMenuItem.PerformClick();
             }
+            //Cerrar rapido
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F12))
             {
                 Application.Exit();
             }
+            //Cambiar orden de ventanas
             else if(Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.T))
             {
                 if (validarTabsSinAdv())
                 {
                     if (tabControl.SelectedTab != tabGuardada && tabGuardada != null && indexGuardada > -1)
                     {
-                        tabControl.TabPages[indexGuardada] = tabControl.TabPages[tabControl.SelectedIndex];
+                        tabControl.TabPages[indexGuardada] = tabControl.SelectedTab;
                         tabControl.TabPages[tabControl.SelectedIndex] = tabGuardada;
+
+                        tabControl.SelectedIndex = indexGuardada;
 
                         tabGuardada = null;
                         indexGuardada = -1;
@@ -964,7 +963,6 @@ namespace DolphyText
                 }
 
             }
-
 
         }
 
@@ -1111,5 +1109,6 @@ namespace DolphyText
             FormOrdenTabs formOrdenTabs = new FormOrdenTabs(ref tabControl);
             formOrdenTabs.ShowDialog();
         }
+
     }//
 }
