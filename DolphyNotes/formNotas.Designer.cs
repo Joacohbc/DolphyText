@@ -29,9 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormNotas));
-            this.txtNotas = new System.Windows.Forms.RichTextBox();
             this.lblCompletar = new System.Windows.Forms.Label();
+            this.txtNotas = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
+            // 
+            // lblCompletar
+            // 
+            this.lblCompletar.AutoSize = true;
+            this.lblCompletar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblCompletar.Location = new System.Drawing.Point(0, 234);
+            this.lblCompletar.Name = "lblCompletar";
+            this.lblCompletar.Size = new System.Drawing.Size(54, 13);
+            this.lblCompletar.TabIndex = 1;
+            this.lblCompletar.Text = "Completar";
+            this.lblCompletar.Visible = false;
             // 
             // txtNotas
             // 
@@ -50,17 +61,6 @@
             this.txtNotas.TextChanged += new System.EventHandler(this.txtNotas_TextChanged);
             this.txtNotas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNotas_KeyDown);
             this.txtNotas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNuevo_KeyPress);
-            // 
-            // lblCompletar
-            // 
-            this.lblCompletar.AutoSize = true;
-            this.lblCompletar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblCompletar.Location = new System.Drawing.Point(0, 234);
-            this.lblCompletar.Name = "lblCompletar";
-            this.lblCompletar.Size = new System.Drawing.Size(54, 13);
-            this.lblCompletar.TabIndex = 1;
-            this.lblCompletar.Text = "Completar";
-            this.lblCompletar.Visible = false;
             // 
             // FormNotas
             // 
@@ -86,8 +86,8 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox txtNotas;
         private System.Windows.Forms.Label lblCompletar;
+        private System.Windows.Forms.RichTextBox txtNotas;
     }
 }
 

@@ -251,13 +251,24 @@ namespace DolphyNotes
             {
                 guardar();
             }
+            //Guardar como...
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.S))
             {
                 guardarComo();
             }
+            //Abrir un archivo
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.O))
             {
                 abrirNota();
+            }
+            //Tema oscuro
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
+            {
+                txtNotas.BackColor = Color.FromArgb(41, 39, 39);
+                txtNotas.ForeColor = Color.FromArgb(160, 160, 160);
+
+                lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
+                lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
             }
         }
 
@@ -495,5 +506,9 @@ namespace DolphyNotes
             crearCarpetas();
         }
 
+        private void lblCompletar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
