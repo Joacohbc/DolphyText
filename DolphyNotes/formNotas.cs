@@ -232,20 +232,6 @@ namespace DolphyNotes
                 colorDialog.ShowDialog();
                 txtNotas.ForeColor = colorDialog.Color;
             }
-            //Top Most
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F11))
-            {
-                if (this.TopMost)
-                {
-                    this.TopMost = false;
-                    MessageBox.Show("Se desactivo el simpre al frente", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    this.TopMost = true;
-                    MessageBox.Show("Se activo el simpre al frente", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
             //Guardar
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.S))
             {
@@ -264,12 +250,66 @@ namespace DolphyNotes
             //Tema oscuro
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
             {
-                txtNotas.BackColor = Color.FromArgb(41, 39, 39);
-                txtNotas.ForeColor = Color.FromArgb(160, 160, 160);
+                if(txtNotas.BackColor != Color.FromArgb(41, 39, 39)){//Tema Oscuro
 
-                lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
-                lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
+                    txtNotas.BackColor = Color.FromArgb(41, 39, 39);
+                    txtNotas.ForeColor = Color.FromArgb(160, 160, 160);
+
+                    lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
+                    lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
+                }
+                else//Tema Claro
+                {
+                    txtNotas.BackColor = Color.FromArgb(255, 255, 255);
+                    txtNotas.ForeColor = RichTextBox.DefaultForeColor;
+
+                    lblCompletar.BackColor = Label.DefaultBackColor;
+                    lblCompletar.ForeColor = Label.DefaultForeColor;
+                }
             }
+            //Sacar botones
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F2))
+            {
+                if (this.ControlBox)
+                {
+                    this.ControlBox = false;
+                    MessageBox.Show("Se desactivaron los botones", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    this.ControlBox = true;
+                    MessageBox.Show("Se activaron los botones", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            //Fijar pestania
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F3))
+            {
+                if (this.FormBorderStyle != FormBorderStyle.None)
+                {
+                    this.FormBorderStyle = FormBorderStyle.None;
+                    MessageBox.Show("Se activo la fijacion de la ventana", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    MessageBox.Show("Se desactivo la fijacion de la ventana", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            //Top Most
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F4))
+            {
+                if (this.TopMost)
+                {
+                    this.TopMost = false;
+                    MessageBox.Show("Se desactivo el simpre al frente", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    this.TopMost = true;
+                    MessageBox.Show("Se activo el simpre al frente", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+                
         }
 
         private void txtNotas_SelectionChanged(object sender, EventArgs e)
@@ -373,14 +413,14 @@ namespace DolphyNotes
                         //Cargo el RTF en el RichTextBox con texto con estilo
                         txtNotas.LoadFile(abrir.FileName);
                         rutaDondeEstaGuardado = abrir.FileName;
-                        this.Text += ": " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
+                        this.Text = "DolphyNotes: " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
                     }
                     else if (Path.GetExtension(abrir.FileName) == ".txt")
                     {
                         //Cargo el RTF en el RichTextBox con texto simple
                         txtNotas.Text = sr.ReadToEnd();
                         rutaDondeEstaGuardado = abrir.FileName;
-                        this.Text += ": " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
+                        this.Text = "DolphyNotes: " + Path.GetFileNameWithoutExtension(rutaDondeEstaGuardado);
 
                     }
                     else
