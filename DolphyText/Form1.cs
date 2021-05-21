@@ -370,7 +370,6 @@ namespace DolphyText
                 {
                     if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.CapsLock))//El Control+Space cambiaba todo
                     {
-                        e.Handled = true;
                         String texto = txtTexto.SelectedText;
                         String op = "";
                         if (texto.Length >= 3)
@@ -395,6 +394,9 @@ namespace DolphyText
                             txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
                         }
 
+                        /*Para que vuelva a como estaba, osea si estaba activado que se mantenga asi
+                        y lo mismo con minusculas*/
+                        SendKeys.Send("{CAPSLOCK}");
                     }
                 }
 

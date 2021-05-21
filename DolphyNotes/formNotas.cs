@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DolphyNotes
@@ -181,7 +178,6 @@ namespace DolphyNotes
             {
                 if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.CapsLock))//El Control+Space cambiaba todo
                 {
-                    e.Handled = true;
                     String texto = txtNotas.SelectedText;
                     String op = "";
                     if (texto.Length >= 3)
@@ -206,6 +202,9 @@ namespace DolphyNotes
                         txtNotas.SelectedText = lblCompletar.Text;
                     }
 
+                    /*Para que vuelva a como estaba, osea si estaba activado que se mantenga asi
+                     y lo mismo con minusculas*/
+                    SendKeys.Send("{CAPSLOCK}");
                 }
             }
             //Cambiar BackColor
@@ -216,7 +215,7 @@ namespace DolphyNotes
                 colorDialog.ShowDialog();
                 txtNotas.BackColor = colorDialog.Color;
             }
-            //Cambiar ForeColor
+            //Cambiar Font
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.F))
             {
                 FontDialog fontDialog = new FontDialog();
@@ -224,7 +223,7 @@ namespace DolphyNotes
                 fontDialog.ShowDialog();
                 txtNotas.Font = fontDialog.Font;
             }
-            //Cambiar Font
+            //Cambiar ForeColor
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.C))
             {
                 ColorDialog colorDialog = new ColorDialog();
@@ -546,9 +545,5 @@ namespace DolphyNotes
             crearCarpetas();
         }
 
-        private void lblCompletar_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
