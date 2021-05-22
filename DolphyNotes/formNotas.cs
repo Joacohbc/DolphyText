@@ -14,9 +14,10 @@ namespace DolphyNotes
     {
         private static String rutaRaiz = "C:\\DolphyCompany";
         private String rutaNotasGuardadasDefault = rutaRaiz + "\\DolphyNotes\\Notes";
-        private String rutaNotasArchivoConfig = rutaRaiz + "\\DolphyNotes\\config.dolphy";
+        //private String rutaNotasArchivoConfig = rutaRaiz + "\\DolphyNotes\\config.dolphy";
+        private String rutaNotasArchivoConfig = ".\\config.dolphy";
         private String rutaDondeEstaGuardado = "";
-        //private String rutaNotasArchivoConfig = ".\\config.dolphy
+
 
         private void camiarPropiedad(String texto)
         {
