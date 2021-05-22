@@ -55,8 +55,8 @@
             this.txtNotas.Size = new System.Drawing.Size(253, 247);
             this.txtNotas.TabIndex = 0;
             this.txtNotas.Text = "";
-            this.txtNotas.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
-            this.txtNotas.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.txtNotas.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtNotas_DragDrop);
+            this.txtNotas.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtNotas_DragEnter);
             this.txtNotas.SelectionChanged += new System.EventHandler(this.txtNotas_SelectionChanged);
             this.txtNotas.TextChanged += new System.EventHandler(this.txtNotas_TextChanged);
             this.txtNotas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNotas_KeyDown);
@@ -77,8 +77,8 @@
             this.ShowIcon = false;
             this.Text = "DolphyNotes";
             this.Load += new System.EventHandler(this.FormNotas_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormNotas_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormNotas_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

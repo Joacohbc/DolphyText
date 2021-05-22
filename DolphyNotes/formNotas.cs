@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DolphyNotes
@@ -12,7 +14,14 @@ namespace DolphyNotes
     {
         private static String rutaRaiz = "C:\\DolphyCompany";
         private String rutaNotasGuardadasDefault = rutaRaiz + "\\DolphyNotes\\Notes";
+        private String rutaNotasArchivoConfig = rutaRaiz + "\\DolphyNotes\\config.dolphy";
         private String rutaDondeEstaGuardado = "";
+        //private String rutaNotasArchivoConfig = ".\\config.dolphy
+
+        private void camiarPropiedad(String texto)
+        {
+            MessageBox.Show(texto, Texto.Propiedades, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         private void crearCarpetas()
         {
@@ -26,6 +35,17 @@ namespace DolphyNotes
                 Directory.CreateDirectory(rutaNotasGuardadasDefault);
             }
 
+            if (!File.Exists(rutaNotasArchivoConfig))
+            {
+                File.CreateText(rutaNotasArchivoConfig).Close();
+                String configs =
+                    "#Si esta o no el modo escuro activado \n" +
+                    "Oscuro=YES \n" +
+                    "#Idioma en el que esta el programa \n" +
+                    "Idioma=ES"; ;
+                File.WriteAllText(rutaNotasArchivoConfig, configs);
+            }
+
         }
 
         public FormNotas()
@@ -33,6 +53,7 @@ namespace DolphyNotes
             InitializeComponent();
         }
 
+        //Completar signos
         private void txtNuevo_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Sacado de https://www.c-sharpcorner.com/UploadFile/f5a10c/auto-complete-brackets-in-C-Sharpvb-net877/
@@ -85,6 +106,7 @@ namespace DolphyNotes
             }
         }
 
+        //Combinacion de teclas
         private void txtNotas_KeyDown(object sender, KeyEventArgs e)
         {
             //Poner negrita
@@ -249,21 +271,24 @@ namespace DolphyNotes
             //Tema oscuro
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
             {
-                if(txtNotas.BackColor != Color.FromArgb(41, 39, 39)){//Tema Oscuro
-
-                    txtNotas.BackColor = Color.FromArgb(41, 39, 39);
-                    txtNotas.ForeColor = Color.FromArgb(160, 160, 160);
-
-                    lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
-                    lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
-                }
-                else//Tema Claro
-                {
+                String configs = File.ReadAllText(rutaNotasArchivoConfig);
+                if (configs.IndexOf("Oscuro=YES") != -1)
+                {//Tema Claro
                     txtNotas.BackColor = Color.FromArgb(255, 255, 255);
                     txtNotas.ForeColor = RichTextBox.DefaultForeColor;
 
                     lblCompletar.BackColor = Label.DefaultBackColor;
                     lblCompletar.ForeColor = Label.DefaultForeColor;
+                    File.WriteAllText(rutaNotasArchivoConfig, configs.Replace("Oscuro=YES", "Oscuro=NO"));
+                }
+                else//Tema Oscuro
+                {
+                    txtNotas.BackColor = Color.FromArgb(41, 39, 39);
+                    txtNotas.ForeColor = Color.FromArgb(160, 160, 160);
+
+                    lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
+                    lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
+                    File.WriteAllText(rutaNotasArchivoConfig, configs.Replace("Oscuro=NO", "Oscuro=YES"));
                 }
             }
             //Sacar botones
@@ -272,12 +297,12 @@ namespace DolphyNotes
                 if (this.ControlBox)
                 {
                     this.ControlBox = false;
-                    MessageBox.Show("Se desactivaron los botones", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    camiarPropiedad(Texto.ActivarBotones);
                 }
                 else
                 {
                     this.ControlBox = true;
-                    MessageBox.Show("Se activaron los botones", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    camiarPropiedad(Texto.DesactivarBotones);
                 }
             }
             //Fijar pestania
@@ -286,12 +311,12 @@ namespace DolphyNotes
                 if (this.FormBorderStyle != FormBorderStyle.None)
                 {
                     this.FormBorderStyle = FormBorderStyle.None;
-                    MessageBox.Show("Se activo la fijacion de la ventana", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    camiarPropiedad(Texto.ActivarFijacion);
                 }
                 else
                 {
                     this.FormBorderStyle = FormBorderStyle.Sizable;
-                    MessageBox.Show("Se desactivo la fijacion de la ventana", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    camiarPropiedad(Texto.DesactivarFijacion);
                 }
             }
             //Top Most
@@ -300,17 +325,35 @@ namespace DolphyNotes
                 if (this.TopMost)
                 {
                     this.TopMost = false;
-                    MessageBox.Show("Se desactivo el simpre al frente", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    camiarPropiedad(Texto.ActivarAlFrente);
                 }
                 else
                 {
                     this.TopMost = true;
-                    MessageBox.Show("Se activo el simpre al frente", "Propiedades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    camiarPropiedad(Texto.DesactivarAlFrente);
                 }
             }
-                
+            //Cambiar lenguaje
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F12))
+            {
+                String configs = File.ReadAllText(rutaNotasArchivoConfig);
+                if (configs.IndexOf("Idioma=ES") != -1)
+                {
+                    Texto.Culture = new CultureInfo("en-US");
+                    File.WriteAllText(rutaNotasArchivoConfig, configs.Replace("Idioma=ES", "Idioma=EN"));
+                    camiarPropiedad(Texto.IdiomaCambio + " English(USA)");
+                }
+                else
+                {
+                    Texto.Culture = new CultureInfo("es-ES");
+                    File.WriteAllText(rutaNotasArchivoConfig, configs.Replace("Idioma=EN", "Idioma=ES"));
+                    camiarPropiedad(Texto.IdiomaCambio + " Español");
+                }   
+            }
+
         }
 
+        //Check el completo
         private void txtNotas_SelectionChanged(object sender, EventArgs e)
         {
             String texto = txtNotas.SelectedText;
@@ -350,7 +393,8 @@ namespace DolphyNotes
             }
         }
 
-        private void Form1_DragDrop(object sender, DragEventArgs e)
+        //Ingresar archivos
+        private void txtNotas_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (files != null && files.Any())
@@ -376,16 +420,22 @@ namespace DolphyNotes
                         //Y devuelvo el clipboard a su estado anterior
                         Clipboard.SetDataObject(clipBoardAntes);
                     }
+                    else
+                    {
+                        txtNotas.LoadFile(file);
+                    }
 
                 }
             }
         }
 
-        private void Form1_DragEnter(object sender, DragEventArgs e)
+        //Poner efectitos al ingresar
+        private void txtNotas_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
 
+        //Poner asterisco
         private void txtNotas_TextChanged(object sender, EventArgs e)
         {
             if (this.Text.ElementAt(0) != '*') this.Text = "*" + this.Text;
@@ -400,7 +450,7 @@ namespace DolphyNotes
             {
                 OpenFileDialog abrir = new OpenFileDialog();
                 abrir.InitialDirectory = rutaNotasGuardadasDefault;
-                abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
+                abrir.Filter = Texto.TipoArchivos;
 
                 if (abrir.ShowDialog() == DialogResult.OK)
                 {
@@ -424,7 +474,7 @@ namespace DolphyNotes
                     }
                     else
                     {
-                        MessageBox.Show("Extension no soportada del archivo " + Path.GetFileName(abrir.FileName), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(Texto.ExtensionNoSoportada + " " + Path.GetFileName(abrir.FileName), Texto.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     sr.Close();//Para que deje de usar el archivo
 
@@ -432,7 +482,7 @@ namespace DolphyNotes
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al abrir" + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Texto.ErrorAbrir + " " + ex.ToString(), Texto.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show(ex.ToString());
             }
 
@@ -465,7 +515,7 @@ namespace DolphyNotes
                     }
                     else
                     {
-                        MessageBox.Show("Extension no soportada", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(Texto.ExtensionNoSoportada, Texto.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                 }//Si no existe el archivo
@@ -477,7 +527,7 @@ namespace DolphyNotes
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Texto.ErrorGuardar, Texto.ErrorGuardar, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show(ex.ToString());
             }
 
@@ -493,7 +543,7 @@ namespace DolphyNotes
                 SaveFileDialog guardar = new SaveFileDialog();
                 guardar.FileName = Path.GetFileNameWithoutExtension(rutaNotasGuardadasDefault);
                 guardar.InitialDirectory = rutaNotasGuardadasDefault;
-                guardar.Filter = "Archivos RTF |*.rtf|Archivos de texto|*.txt|Todos los archivos|*.*";
+                guardar.Filter = Texto.TipoArchivos;
 
                 if (guardar.ShowDialog() == DialogResult.OK)
                 {
@@ -520,7 +570,7 @@ namespace DolphyNotes
                     }
                     else
                     {
-                        MessageBox.Show("Extension no soportada", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(Texto.ExtensionNoSoportada, Texto.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                 }
@@ -528,7 +578,7 @@ namespace DolphyNotes
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Texto.ErrorGuardar, Texto.ErrorGuardar, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show(ex.ToString());
             }
         }///
@@ -543,7 +593,67 @@ namespace DolphyNotes
         private void FormNotas_Load(object sender, EventArgs e)
         {
             crearCarpetas();
+
+            String configs = File.ReadAllText(rutaNotasArchivoConfig);
+            if (configs.IndexOf("Oscuro=YES") != -1)
+            {
+                txtNotas.BackColor = Color.FromArgb(41, 39, 39);
+                txtNotas.ForeColor = Color.FromArgb(160, 160, 160);
+
+                lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
+                lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
+            }
+
+            if (configs.IndexOf("Idioma=ES") != -1)
+            {
+                Texto.Culture = new CultureInfo("es-ES");
+            }
+            else if(configs.IndexOf("Idioma=EN") != -1)
+            {
+                Texto.Culture = new CultureInfo("en-US");
+            }
         }
 
+        //Ingresar archivos
+        private void FormNotas_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+            if (files != null && files.Any())
+            {
+                foreach (string file in files)
+                {
+
+                    List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
+                    //Si es una imagen la agrego al rich box
+                    if (ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
+                    {
+                        //Guardo el clipboard antes de agregar la imagen
+                        var clipBoardAntes = Clipboard.GetDataObject();
+                        //Guardo la imagen como BitMap y lo pongo en el clipboard
+                        Bitmap myBitmap = new Bitmap(file);
+                        Clipboard.SetDataObject(myBitmap);
+                        //Verifico si puedo pegar la imagen y si puedo la pego
+                        DataFormats.Format myFormat = DataFormats.GetFormat(DataFormats.Bitmap);
+                        if (txtNotas.CanPaste(myFormat))
+                        {
+                            txtNotas.Paste(myFormat);
+                        }
+                        //Y devuelvo el clipboard a su estado anterior
+                        Clipboard.SetDataObject(clipBoardAntes);
+                    }
+                    else
+                    {
+                        txtNotas.LoadFile(file);
+                    }
+
+                }
+            }
+        }
+
+        //Poner efectitos al ingresar
+        private void FormNotas_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
     }
 }
