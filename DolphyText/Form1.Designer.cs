@@ -38,21 +38,26 @@
             this.nuevaVentanaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mostrarRutaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enFrenteSiempreOFFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.informacionDeAtajosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.atajosDelProgramaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.atajosDeTextoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.abrirNotaDespegableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salirEscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.herramientaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambiarFuenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDeFondoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.atajosTecladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorTextoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.cambiarOrdenDeLasVentanasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ColorSeleccionadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +67,8 @@
             this.archivoToolStripMenuItem,
             this.herramientaToolStripMenuItem,
             this.formatoToolStripMenuItem,
-            this.atajosTecladoToolStripMenuItem,
+            this.colorTextoToolStripMenuItem,
+            this.ColorSeleccionadoToolStripMenuItem,
             this.resultadoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -79,6 +85,8 @@
             this.nuevaVentanaToolStripMenuItem,
             this.mostrarRutaToolStripMenuItem,
             this.enFrenteSiempreOFFToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.informacionDeAtajosToolStripMenuItem,
             this.toolStripSeparator1,
             this.abrirNotaDespegableToolStripMenuItem,
             this.toolStripSeparator2,
@@ -129,6 +137,34 @@
             this.enFrenteSiempreOFFToolStripMenuItem.Text = "Siempre en Frente(No)";
             this.enFrenteSiempreOFFToolStripMenuItem.Click += new System.EventHandler(this.enFrenteSiempreOFFToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(192, 6);
+            // 
+            // informacionDeAtajosToolStripMenuItem
+            // 
+            this.informacionDeAtajosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.atajosDelProgramaToolStripMenuItem,
+            this.atajosDeTextoToolStripMenuItem});
+            this.informacionDeAtajosToolStripMenuItem.Name = "informacionDeAtajosToolStripMenuItem";
+            this.informacionDeAtajosToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.informacionDeAtajosToolStripMenuItem.Text = "Informacion de Atajos";
+            // 
+            // atajosDelProgramaToolStripMenuItem
+            // 
+            this.atajosDelProgramaToolStripMenuItem.Name = "atajosDelProgramaToolStripMenuItem";
+            this.atajosDelProgramaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atajosDelProgramaToolStripMenuItem.Text = "Atajos generales";
+            this.atajosDelProgramaToolStripMenuItem.Click += new System.EventHandler(this.atajosDelProgramaToolStripMenuItem_Click_1);
+            // 
+            // atajosDeTextoToolStripMenuItem
+            // 
+            this.atajosDeTextoToolStripMenuItem.Name = "atajosDeTextoToolStripMenuItem";
+            this.atajosDeTextoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atajosDeTextoToolStripMenuItem.Text = "Atajos de texto";
+            this.atajosDeTextoToolStripMenuItem.Click += new System.EventHandler(this.atajosDeTextoToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -165,9 +201,16 @@
             // buscarToolStripMenuItem
             // 
             this.buscarToolStripMenuItem.Name = "buscarToolStripMenuItem";
-            this.buscarToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.buscarToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.buscarToolStripMenuItem.Text = "Buscar y Remplazar   Ctrl+F";
             this.buscarToolStripMenuItem.Click += new System.EventHandler(this.buscarToolStripMenuItem_Click);
+            // 
+            // cambiarOrdenDeLasVentanasToolStripMenuItem
+            // 
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Name = "cambiarOrdenDeLasVentanasToolStripMenuItem";
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Text = "Cambiar orden de las ventanas";
+            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Click += new System.EventHandler(this.cambiarOrdenDeLasVentanasToolStripMenuItem_Click);
             // 
             // formatoToolStripMenuItem
             // 
@@ -176,36 +219,29 @@
             this.colorToolStripMenuItem,
             this.colorDeFondoToolStripMenuItem});
             this.formatoToolStripMenuItem.Name = "formatoToolStripMenuItem";
-            this.formatoToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.formatoToolStripMenuItem.Text = "Formato";
+            this.formatoToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.formatoToolStripMenuItem.Text = "Formato general";
             // 
             // cambiarFuenteToolStripMenuItem
             // 
             this.cambiarFuenteToolStripMenuItem.Name = "cambiarFuenteToolStripMenuItem";
-            this.cambiarFuenteToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
-            this.cambiarFuenteToolStripMenuItem.Text = "Fuente del texo         Ctrl+Shift+F";
+            this.cambiarFuenteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cambiarFuenteToolStripMenuItem.Text = "Fuente del texo";
             this.cambiarFuenteToolStripMenuItem.Click += new System.EventHandler(this.cambiarFuenteToolStripMenuItem_Click);
             // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
-            this.colorToolStripMenuItem.Text = "Color  del texto         Ctrl+Shift+C";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorToolStripMenuItem.Text = "Color  del texto";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
             // colorDeFondoToolStripMenuItem
             // 
             this.colorDeFondoToolStripMenuItem.Name = "colorDeFondoToolStripMenuItem";
-            this.colorDeFondoToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
-            this.colorDeFondoToolStripMenuItem.Text = "Color de Fondo         Ctrl+Shift+B";
+            this.colorDeFondoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorDeFondoToolStripMenuItem.Text = "Color de Fondo";
             this.colorDeFondoToolStripMenuItem.Click += new System.EventHandler(this.colorDeFondoToolStripMenuItem_Click);
-            // 
-            // atajosTecladoToolStripMenuItem
-            // 
-            this.atajosTecladoToolStripMenuItem.Name = "atajosTecladoToolStripMenuItem";
-            this.atajosTecladoToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.atajosTecladoToolStripMenuItem.Text = "Atajos Teclado";
-            this.atajosTecladoToolStripMenuItem.Click += new System.EventHandler(this.atajosTecladoToolStripMenuItem_Click);
             // 
             // resultadoToolStripMenuItem
             // 
@@ -214,6 +250,13 @@
             this.resultadoToolStripMenuItem.Text = "Resultado: ";
             this.resultadoToolStripMenuItem.Visible = false;
             this.resultadoToolStripMenuItem.Click += new System.EventHandler(this.resultadoToolStripMenuItem_Click);
+            // 
+            // colorTextoToolStripMenuItem
+            // 
+            this.colorTextoToolStripMenuItem.Name = "colorTextoToolStripMenuItem";
+            this.colorTextoToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.colorTextoToolStripMenuItem.Text = "Cambiar color";
+            this.colorTextoToolStripMenuItem.Click += new System.EventHandler(this.colorTextoToolStripMenuItem_Click);
             // 
             // tabControl
             // 
@@ -234,12 +277,13 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
-            // cambiarOrdenDeLasVentanasToolStripMenuItem
+            // ColorSeleccionadoToolStripMenuItem
             // 
-            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Name = "cambiarOrdenDeLasVentanasToolStripMenuItem";
-            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Text = "Cambiar orden de las ventanas";
-            this.cambiarOrdenDeLasVentanasToolStripMenuItem.Click += new System.EventHandler(this.cambiarOrdenDeLasVentanasToolStripMenuItem_Click);
+            this.ColorSeleccionadoToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlText;
+            this.ColorSeleccionadoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ColorSeleccionadoToolStripMenuItem.Name = "ColorSeleccionadoToolStripMenuItem";
+            this.ColorSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
+            this.ColorSeleccionadoToolStripMenuItem.Click += new System.EventHandler(this.ColorSeleccionadoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -253,7 +297,7 @@
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(340, 64);
+            this.MinimumSize = new System.Drawing.Size(395, 64);
             this.Name = "Form1";
             this.Text = "DolphyText";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -285,13 +329,18 @@
         private System.Windows.Forms.ToolStripMenuItem enFrenteSiempreOFFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mostrarRutaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resultadoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem atajosTecladoToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem salirEscToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem abrirNotaDespegableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarOrdenDeLasVentanasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem colorTextoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem informacionDeAtajosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem atajosDelProgramaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem atajosDeTextoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ColorSeleccionadoToolStripMenuItem;
     }
 
 }

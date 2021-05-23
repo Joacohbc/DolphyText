@@ -136,4 +136,7 @@
   <data name="IdiomaCambio" xml:space="preserve">
     <value>El idioma cambio a</value>
   </data>
+  <data name="ErrorConfiguracion" xml:space="preserve">
+    <value>Error en el archivo de configuracion</value>
+  </data>
 </root>

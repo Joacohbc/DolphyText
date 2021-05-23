@@ -133,6 +133,15 @@ namespace DolphyNotes {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error en el archivo de configuracion.
+        /// </summary>
+        public static string ErrorConfiguracion {
+            get {
+                return ResourceManager.GetString("ErrorConfiguracion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error al guardar el archivo:.
         /// </summary>
         public static string ErrorGuardar {

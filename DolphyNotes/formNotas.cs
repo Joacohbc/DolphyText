@@ -14,14 +14,19 @@ namespace DolphyNotes
     {
         private static String rutaRaiz = "C:\\DolphyCompany";
         private String rutaNotasGuardadasDefault = rutaRaiz + "\\DolphyNotes\\Notes";
-        //private String rutaNotasArchivoConfig = rutaRaiz + "\\DolphyNotes\\config.dolphy";
-        private String rutaNotasArchivoConfig = ".\\config.dolphy";
+        private String rutaNotasArchivoConfig = rutaRaiz + "\\DolphyNotes\\config.dolphy";
+        //private String rutaNotasArchivoConfig = ".\\config.dolphy";
         private String rutaDondeEstaGuardado = "";
 
+        //Variables de configuracion
+        private bool avisoCambioPropiedad = true;
 
         private void camiarPropiedad(String texto)
         {
-            MessageBox.Show(texto, Texto.Propiedades, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (avisoCambioPropiedad)
+            {
+                MessageBox.Show(texto, Texto.Propiedades, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void crearCarpetas()
@@ -43,7 +48,9 @@ namespace DolphyNotes
                     "#Si esta o no el modo escuro activado \n" +
                     "Oscuro=YES \n" +
                     "#Idioma en el que esta el programa \n" +
-                    "Idioma=ES"; ;
+                    "Idioma=ES \n" +
+                    "#Que muestre los avisos de cambio de propiedad \n" +
+                    "AvisoCambioPropiedad=YES";
                 File.WriteAllText(rutaNotasArchivoConfig, configs);
             }
 
@@ -199,7 +206,7 @@ namespace DolphyNotes
             //Completar
             else if (lblCompletar.Visible)
             {
-                if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.CapsLock))//El Control+Space cambiaba todo
+                if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.CapsLock))//El Control+Space quita todo
                 {
                     String texto = txtNotas.SelectedText;
                     String op = "";
@@ -326,12 +333,12 @@ namespace DolphyNotes
                 if (this.TopMost)
                 {
                     this.TopMost = false;
-                    camiarPropiedad(Texto.ActivarAlFrente);
+                    camiarPropiedad(Texto.DesactivarAlFrente);
                 }
                 else
                 {
                     this.TopMost = true;
-                    camiarPropiedad(Texto.DesactivarAlFrente);
+                    camiarPropiedad(Texto.ActivarAlFrente);
                 }
             }
             //Cambiar lenguaje
@@ -351,7 +358,21 @@ namespace DolphyNotes
                     camiarPropiedad(Texto.IdiomaCambio + " Español");
                 }   
             }
-
+            //Quitar avisos de cambios
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F11))
+            {
+                String configs = File.ReadAllText(rutaNotasArchivoConfig);
+                if (configs.IndexOf("AvisoCambioPropiedad=YES") != -1)
+                {
+                    File.WriteAllText(rutaNotasArchivoConfig, configs.Replace("AvisoCambioPropiedad=YES", "AvisoCambioPropiedad=NO"));
+                    avisoCambioPropiedad = false;
+                }
+                else
+                {
+                    File.WriteAllText(rutaNotasArchivoConfig, configs.Replace("AvisoCambioPropiedad=NO", "AvisoCambioPropiedad=YES"));
+                    avisoCambioPropiedad = true;
+                }
+            }
         }
 
         //Check el completo
@@ -366,7 +387,7 @@ namespace DolphyNotes
                 if (char.IsDigit(c) || c == '+' || c == '-' || c == '/' || c == '*') i++;
             }
 
-            if (i == texto.Length && i >= 3)//Si es minimo una cuenta osae 3+3, 3 digitos minimo
+            if (i == texto.Length && i >= 3)//Si es minimo una cuenta osea 3+3, 3 digitos minimo
             {
                 //Try para que no crashee en caso de ser un valor invalido
                 try
@@ -604,6 +625,14 @@ namespace DolphyNotes
                 lblCompletar.BackColor = Color.FromArgb(105, 105, 105);
                 lblCompletar.ForeColor = Color.FromArgb(160, 160, 160);
             }
+            else if (configs.IndexOf("Oscuro=NO") != -1) { }
+            else
+            {
+                MessageBox.Show(Texto.ErrorConfiguracion, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                File.Delete(rutaNotasArchivoConfig);
+                Application.Exit();
+            }
+
 
             if (configs.IndexOf("Idioma=ES") != -1)
             {
@@ -613,6 +642,28 @@ namespace DolphyNotes
             {
                 Texto.Culture = new CultureInfo("en-US");
             }
+            else
+            {
+                MessageBox.Show(Texto.ErrorConfiguracion, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                File.Delete(rutaNotasArchivoConfig);
+                Application.Exit();
+            }
+
+            if (configs.IndexOf("AvisoCambioPropiedad=YES") != -1)
+            {
+                avisoCambioPropiedad = true; 
+            }
+            else if (configs.IndexOf("AvisoCambioPropiedad=NO") != -1)
+            {
+                avisoCambioPropiedad = false;
+            }
+            else
+            {
+                MessageBox.Show(Texto.ErrorConfiguracion, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                File.Delete(rutaNotasArchivoConfig);
+                Application.Exit();
+            }
+
         }
 
         //Ingresar archivos

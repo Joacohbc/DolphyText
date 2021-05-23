@@ -399,7 +399,16 @@ namespace DolphyText
                         SendKeys.Send("{CAPSLOCK}");
                     }
                 }
-
+                //Cambiar color fuente
+                else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.C))
+                {
+                    colorTextoToolStripMenuItem.PerformClick();
+                }
+                //Cambiar color fondo
+                else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.B))
+                {
+                    //colorDeFondoToolStripMenuItem.PerformClick();
+                }
             }
         }///
 
@@ -861,28 +870,8 @@ namespace DolphyText
                     mostrarRutaToolStripMenuItem.Text = "Mostrar ruta(No)";
                 }
 
-
             }
 
-        }///
-
-        //Informacion de Atajos
-        private void atajosTecladoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-            "Ctrl+B = Negrita \n" +
-            "Ctrl+U = Subrayado \n" +
-            "Ctrl+K = Italica \n" +
-            "Ctrl+T = Tachado \n" +
-            "Ctrl+Q = Quitar estilo \n" +
-            "Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
-            "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n" +
-            "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
-            "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
-            "F11 = Activar/Desactivar guardado final de las ventanas \n" +
-            "F1 = Abrir una nota despegable \n" +
-            "F12 = Salir instantaneamente(Sin preguntar ni guardar)"
-            , "Combinaciones de teclas", MessageBoxButtons.OK,MessageBoxIcon.None);
         }///
 
         //Teclas
@@ -912,21 +901,6 @@ namespace DolphyText
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.W))
             {
                 eliminarVentana(MessageBoxDefaultButton.Button1);
-            }
-            //Cambiar fuente
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.F))
-            {
-                cambiarFuenteToolStripMenuItem.PerformClick();
-            }
-            //Cambiar color fuente
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.C))
-            {
-                colorToolStripMenuItem.PerformClick();
-            }
-            //Cambiar color fondo
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.B))
-            {
-                colorDeFondoToolStripMenuItem.PerformClick();
             }
             //Salir
             else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Escape))
@@ -1127,5 +1101,48 @@ namespace DolphyText
             formOrdenTabs.ShowDialog();
         }
 
+        //Aplicar color de letra seleccionado
+        private void colorTextoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (validarTabs())
+            {
+                ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).SelectionColor = ColorSeleccionadoToolStripMenuItem.BackColor;
+            }
+        }
+
+        //Color de letra seleccionado
+        private void ColorSeleccionadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = ColorSeleccionadoToolStripMenuItem.BackColor;
+            colorDialog.ShowDialog();
+            ColorSeleccionadoToolStripMenuItem.BackColor = colorDialog.Color;
+        }
+
+        //Atajos del txtBox
+        private void atajosDeTextoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "Ctrl+B = Negrita \n" +
+                "Ctrl+U = Subrayado \n" +
+                "Ctrl+K = Italica \n" +
+                "Ctrl+T = Tachado \n" +
+                "Ctrl+Q = Quitar estilo \n" +
+                "Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
+                "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n",
+                "Atajos de texto", MessageBoxButtons.OK);
+        }
+
+        //Atajos Generales
+        private void atajosDelProgramaToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
+                "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
+                "F1 = Abrir una nota despegable \n" +
+                "F11 = Activar/Desactivar guardado final de las ventanas \n" +
+                "F12 = Salir instantaneamente(Sin preguntar ni guardar)",
+                "Atajos generales", MessageBoxButtons.OK);
+        }
     }//
 }

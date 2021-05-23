@@ -151,9 +151,12 @@
     <value>Error saving file:</value>
   </data>
   <data name="TipoArchivos" xml:space="preserve">
-    <value>RTF Files |*.rtf| Text FIles|*.txt| All Files|*.* </value>
+    <value>RTF Files |*.rtf| Text Files|*.txt| All Files|*.* </value>
   </data>
   <data name="IdiomaCambio" xml:space="preserve">
     <value>The language changed to</value>
+  </data>
+  <data name="ErrorConfiguracion" xml:space="preserve">
+    <value>Configuration file error </value>
   </data>
 </root>
