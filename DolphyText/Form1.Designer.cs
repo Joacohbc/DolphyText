@@ -53,11 +53,11 @@
             this.cambiarFuenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDeFondoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorTextoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.ColorSeleccionadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ColorSeleccionadoResaltadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,8 +67,8 @@
             this.archivoToolStripMenuItem,
             this.herramientaToolStripMenuItem,
             this.formatoToolStripMenuItem,
-            this.colorTextoToolStripMenuItem,
             this.ColorSeleccionadoToolStripMenuItem,
+            this.ColorSeleccionadoResaltadoToolStripMenuItem,
             this.resultadoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -154,14 +154,14 @@
             // atajosDelProgramaToolStripMenuItem
             // 
             this.atajosDelProgramaToolStripMenuItem.Name = "atajosDelProgramaToolStripMenuItem";
-            this.atajosDelProgramaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atajosDelProgramaToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.atajosDelProgramaToolStripMenuItem.Text = "Atajos generales";
             this.atajosDelProgramaToolStripMenuItem.Click += new System.EventHandler(this.atajosDelProgramaToolStripMenuItem_Click_1);
             // 
             // atajosDeTextoToolStripMenuItem
             // 
             this.atajosDeTextoToolStripMenuItem.Name = "atajosDeTextoToolStripMenuItem";
-            this.atajosDeTextoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atajosDeTextoToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.atajosDeTextoToolStripMenuItem.Text = "Atajos de texto";
             this.atajosDeTextoToolStripMenuItem.Click += new System.EventHandler(this.atajosDeTextoToolStripMenuItem_Click);
             // 
@@ -243,21 +243,6 @@
             this.colorDeFondoToolStripMenuItem.Text = "Color de Fondo";
             this.colorDeFondoToolStripMenuItem.Click += new System.EventHandler(this.colorDeFondoToolStripMenuItem_Click);
             // 
-            // resultadoToolStripMenuItem
-            // 
-            this.resultadoToolStripMenuItem.Name = "resultadoToolStripMenuItem";
-            this.resultadoToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.resultadoToolStripMenuItem.Text = "Resultado: ";
-            this.resultadoToolStripMenuItem.Visible = false;
-            this.resultadoToolStripMenuItem.Click += new System.EventHandler(this.resultadoToolStripMenuItem_Click);
-            // 
-            // colorTextoToolStripMenuItem
-            // 
-            this.colorTextoToolStripMenuItem.Name = "colorTextoToolStripMenuItem";
-            this.colorTextoToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.colorTextoToolStripMenuItem.Text = "Cambiar color";
-            this.colorTextoToolStripMenuItem.Click += new System.EventHandler(this.colorTextoToolStripMenuItem_Click);
-            // 
             // tabControl
             // 
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -279,11 +264,38 @@
             // 
             // ColorSeleccionadoToolStripMenuItem
             // 
-            this.ColorSeleccionadoToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlText;
-            this.ColorSeleccionadoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ColorSeleccionadoToolStripMenuItem.AutoToolTip = true;
+            this.ColorSeleccionadoToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.ColorSeleccionadoToolStripMenuItem.DoubleClickEnabled = true;
+            this.ColorSeleccionadoToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ColorSeleccionadoToolStripMenuItem.Image = global::DolphyText.Properties.Resources.texto_en_color;
             this.ColorSeleccionadoToolStripMenuItem.Name = "ColorSeleccionadoToolStripMenuItem";
-            this.ColorSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
-            this.ColorSeleccionadoToolStripMenuItem.Click += new System.EventHandler(this.ColorSeleccionadoToolStripMenuItem_Click);
+            this.ColorSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.ColorSeleccionadoToolStripMenuItem.Text = "Color";
+            this.ColorSeleccionadoToolStripMenuItem.ToolTipText = "Color de texto";
+            this.ColorSeleccionadoToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ColorSeleccionadoToolStripMenuItem_MouseUp);
+            // 
+            // ColorSeleccionadoResaltadoToolStripMenuItem
+            // 
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.AutoToolTip = true;
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.DoubleClickEnabled = true;
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.Image = global::DolphyText.Properties.Resources.color;
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.Name = "ColorSeleccionadoResaltadoToolStripMenuItem";
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.Text = "Resaltado";
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.ToolTipText = "Color de resaltado";
+            this.ColorSeleccionadoResaltadoToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ColorSeleccionadoResaltadoToolStripMenuItem_MouseUp);
+            // 
+            // resultadoToolStripMenuItem
+            // 
+            this.resultadoToolStripMenuItem.Name = "resultadoToolStripMenuItem";
+            this.resultadoToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.resultadoToolStripMenuItem.Text = "Resultado: ";
+            this.resultadoToolStripMenuItem.Visible = false;
+            this.resultadoToolStripMenuItem.Click += new System.EventHandler(this.resultadoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -328,19 +340,19 @@
         private System.Windows.Forms.ToolStripMenuItem colorDeFondoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enFrenteSiempreOFFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mostrarRutaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resultadoToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem salirEscToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem abrirNotaDespegableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarOrdenDeLasVentanasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem colorTextoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem informacionDeAtajosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem atajosDelProgramaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem atajosDeTextoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ColorSeleccionadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ColorSeleccionadoResaltadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resultadoToolStripMenuItem;
     }
 
 }

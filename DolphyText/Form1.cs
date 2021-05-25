@@ -36,7 +36,7 @@ namespace DolphyText
             }
             else
             {
-                MessageBox.Show("Para hacer esta accion necesita seleccionar una ventana(o minimo tener una ventana abierta)", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Para hacer esta accion necesita seleccionar una ventana(o tener una ventana abierta)", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
         }///
@@ -262,6 +262,12 @@ namespace DolphyText
         {
             if (validarTabsSinAdv())
             {
+                bool hayAsterisco = false;
+                if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
+                {
+                    hayAsterisco = true;
+                }
+
                 RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
                 //Poner negrita
                 if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.B))
@@ -370,44 +376,16 @@ namespace DolphyText
                 {
                     if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.CapsLock))//El Control+Space cambiaba todo
                     {
-                        String texto = txtTexto.SelectedText;
-                        String op = "";
-                        if (texto.Length >= 3)
-                        {
-                            op = resultadoToolStripMenuItem.Text.Substring(0, 4);
-                        }
-                        else
-                        {
-                            op = texto;
-                        }
-
-                        if (op == "R = ")
-                        {
-                            txtTexto.SelectedText = resultadoToolStripMenuItem.Text.Substring(4);
-                        }
-                        else if (op == "n")
-                        {
-                            txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
-                        }
-                        else if (op == "N")
-                        {
-                            txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
-                        }
-
+                        resultadoToolStripMenuItem.PerformClick();
                         /*Para que vuelva a como estaba, osea si estaba activado que se mantenga asi
                         y lo mismo con minusculas*/
                         SendKeys.Send("{CAPSLOCK}");
                     }
                 }
-                //Cambiar color fuente
-                else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.C))
+
+                if (!hayAsterisco)
                 {
-                    colorTextoToolStripMenuItem.PerformClick();
-                }
-                //Cambiar color fondo
-                else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift) + Convert.ToInt32(Keys.B))
-                {
-                    //colorDeFondoToolStripMenuItem.PerformClick();
+                    quitarAsterisco();
                 }
             }
         }///
@@ -480,7 +458,6 @@ namespace DolphyText
 
             return lblNuevo;
         }///
-
 
         /*==========================================================================================Resto del programa==========================================================================================*/
         
@@ -581,15 +558,10 @@ namespace DolphyText
         {
             if (validarTabs())
             {
-                //Busco un "Control" que tenga el nombre txtNuevo mas index seleccionado que es el que cree
-                if (tabControl.SelectedTab.Controls.ContainsKey("txtNuevo"))
-                {
-                    //Si existe que le ponga la font que seleccione
-                    FontDialog fontDialog = new FontDialog();
-                    fontDialog.Font = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).Font;
-                    fontDialog.ShowDialog();
-                    ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).Font = fontDialog.Font;
-                }
+                FontDialog fontDialog = new FontDialog();
+                fontDialog.Font = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).Font;
+                fontDialog.ShowDialog();
+                ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).Font = fontDialog.Font;
             }
 
         }///
@@ -597,20 +569,25 @@ namespace DolphyText
         //Color foreground
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (validarTabs())
             {
-                //Busco un "Control" que tenga el nombre txtNuevo mas index seleccionado que es el que cree
-                if (tabControl.SelectedTab.Controls.ContainsKey("txtNuevo"))
-                {
-                    //Si existe que le ponga la font que se leccione
-                    ColorDialog colorDialog = new ColorDialog();
-                    colorDialog.Color = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).ForeColor;
-                    colorDialog.ShowDialog();
-                    ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).ForeColor = colorDialog.Color;
-                }
+                ColorDialog colorDialog = new ColorDialog();
+                colorDialog.Color = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).ForeColor;
+                colorDialog.ShowDialog();
+                ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).ForeColor = colorDialog.Color;
             }
+        }///
 
+        //Color backgorund
+        private void colorDeFondoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (validarTabs())
+            {
+                ColorDialog colorDialog = new ColorDialog();
+                colorDialog.Color = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).BackColor;
+                colorDialog.ShowDialog();
+                ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).BackColor = colorDialog.Color;
+            }
         }///
 
         //Abrir ventana nueva
@@ -619,7 +596,6 @@ namespace DolphyText
             crearCarpetas();
             try
             {
-
                 OpenFileDialog abrir = new OpenFileDialog();
                 abrir.InitialDirectory = rutaTabsGuardadoDefault;
                 abrir.Filter = "Todos los archivos|*.*|Archivos RTF |*.rtf |Archivos de texto|*.txt";
@@ -763,23 +739,6 @@ namespace DolphyText
             }
         }///
 
-        //Color backgorund
-        private void colorDeFondoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (validarTabs())
-            {
-
-                if (tabControl.SelectedTab.Controls.ContainsKey("txtNuevo"))
-                {
-                    //Si existe que le ponga la font que se leccione
-                    ColorDialog colorDialog = new ColorDialog();
-                    colorDialog.Color = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).BackColor;
-                    colorDialog.ShowDialog();
-                    ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]).BackColor = colorDialog.Color;
-                }
-            }
-        }///
-
         //Auto completar
         private void resultadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -805,11 +764,21 @@ namespace DolphyText
                     }
                     else if (op == "n")
                     {
+                        int[] indexs = { txtTexto.SelectionStart, txtTexto.SelectedText.Length };
                         txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
+                        //Pongo la seccion donde estaba
+                        MessageBox.Show(indexs[0].ToString());
+                        MessageBox.Show(indexs[1].ToString());
+                        txtTexto.SelectionStart = indexs[0];
+                        txtTexto.SelectionLength = indexs[1];
                     }
                     else if (op == "N")
                     {
+                        int[] indexs = { txtTexto.SelectionStart, txtTexto.SelectedText.Length };
                         txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
+                        //Pongo la seccion donde estaba
+                        txtTexto.SelectionStart = indexs[0];
+                        txtTexto.SelectionLength = indexs[1];
                     }
 
                 }
@@ -873,89 +842,6 @@ namespace DolphyText
             }
 
         }///
-
-        //Teclas
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Nueva ventana
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.N))
-            {
-                nuevaVentanaToolStripMenuItem.PerformClick();
-            }
-            //Guardar
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.S))
-            {
-                guardarToolStripMenuItem1.PerformClick();
-            }
-            //Abrir
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.O))
-            {
-                abrirToolStripMenuItem.PerformClick();
-            }
-            //Buscar
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.F))
-            {
-                buscarToolStripMenuItem.PerformClick();
-            }
-            //Cerrar ventana
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.W))
-            {
-                eliminarVentana(MessageBoxDefaultButton.Button1);
-            }
-            //Salir
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Escape))
-            {
-                salirEscToolStripMenuItem.PerformClick();
-            }
-            //Activar/Desactivar guardado de ventanas final
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F11))
-            {
-                if (guardarVentanas)
-                {
-                    MessageBox.Show("Se desactivo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    guardarVentanas = false;
-                }
-                else
-                {
-                    MessageBox.Show("Se activo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    guardarVentanas = true;
-                }
-            }
-            //Abri nota
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
-            {
-                abrirNotaDespegableToolStripMenuItem.PerformClick();
-            }
-            //Cerrar rapido
-            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F12))
-            {
-                Application.Exit();
-            }
-            //Cambiar orden de ventanas
-            else if(Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.T))
-            {
-                if (validarTabsSinAdv())
-                {
-                    if (tabControl.SelectedTab != tabGuardada && tabGuardada != null && indexGuardada > -1)
-                    {
-                        tabControl.TabPages[indexGuardada] = tabControl.SelectedTab;
-                        tabControl.TabPages[tabControl.SelectedIndex] = tabGuardada;
-
-                        tabControl.SelectedIndex = indexGuardada;
-
-                        tabGuardada = null;
-                        indexGuardada = -1;
-                    }
-                    else
-                    {
-                        tabGuardada = tabControl.SelectedTab;
-                        indexGuardada = tabControl.SelectedIndex;
-                    }
-                }
-
-            }
-
-        }
 
         //Crear el NotifyIcon
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1110,20 +996,10 @@ namespace DolphyText
             }
         }
 
-        //Color de letra seleccionado
-        private void ColorSeleccionadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = ColorSeleccionadoToolStripMenuItem.BackColor;
-            colorDialog.ShowDialog();
-            ColorSeleccionadoToolStripMenuItem.BackColor = colorDialog.Color;
-        }
-
         //Atajos del txtBox
         private void atajosDeTextoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Ctrl+B = Negrita \n" +
+            MessageBox.Show("Ctrl+B = Negrita \n" +
                 "Ctrl+U = Subrayado \n" +
                 "Ctrl+K = Italica \n" +
                 "Ctrl+T = Tachado \n" +
@@ -1136,13 +1012,167 @@ namespace DolphyText
         //Atajos Generales
         private void atajosDelProgramaToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
+            MessageBox.Show("Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
                 "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
                 "F1 = Abrir una nota despegable \n" +
                 "F11 = Activar/Desactivar guardado final de las ventanas \n" +
                 "F12 = Salir instantaneamente(Sin preguntar ni guardar)",
                 "Atajos generales", MessageBoxButtons.OK);
         }
+
+        //Teclas
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Nueva ventana
+            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.N))
+            {
+                nuevaVentanaToolStripMenuItem.PerformClick();
+            }
+            //Guardar
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.S))
+            {
+                guardarToolStripMenuItem1.PerformClick();
+            }
+            //Abrir
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.O))
+            {
+                abrirToolStripMenuItem.PerformClick();
+            }
+            //Buscar
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.F))
+            {
+                buscarToolStripMenuItem.PerformClick();
+            }
+            //Cerrar ventana
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.W))
+            {
+                eliminarVentana(MessageBoxDefaultButton.Button1);
+            }
+            //Salir
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Escape))
+            {
+                salirEscToolStripMenuItem.PerformClick();
+            }
+            //Activar/Desactivar guardado de ventanas final
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F11))
+            {
+                if (guardarVentanas)
+                {
+                    MessageBox.Show("Se desactivo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    guardarVentanas = false;
+                }
+                else
+                {
+                    MessageBox.Show("Se activo el guardado final de las ventanas", "Configuraciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    guardarVentanas = true;
+                }
+            }
+            //Abri nota
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F1))
+            {
+                abrirNotaDespegableToolStripMenuItem.PerformClick();
+            }
+            //Cerrar rapido
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.F12))
+            {
+                Application.Exit();
+            }
+            //Cambiar orden de ventanas
+            else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.T))
+            {
+                if (validarTabsSinAdv())
+                {
+                    if (tabControl.SelectedTab != tabGuardada && tabGuardada != null && indexGuardada > -1)
+                    {
+                        tabControl.TabPages[indexGuardada] = tabControl.SelectedTab;
+                        tabControl.TabPages[tabControl.SelectedIndex] = tabGuardada;
+
+                        tabControl.SelectedIndex = indexGuardada;
+
+                        tabGuardada = null;
+                        indexGuardada = -1;
+                    }
+                    else
+                    {
+                        tabGuardada = tabControl.SelectedTab;
+                        indexGuardada = tabControl.SelectedIndex;
+                    }
+                }
+
+            }
+
+        }
+
+        //Color del texto
+        private void ColorSeleccionadoToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (validarTabs())
+            {
+                RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
+                if (e.Button == MouseButtons.Left)//Con izquiero aplico el color
+                {
+                    txtTexto.SelectionColor = ColorSeleccionadoToolStripMenuItem.ForeColor;
+                }
+                else if (e.Button == MouseButtons.Right)// Con click derecho agarre el color del texto seleccionado
+                {
+                    ColorDialog colorDialog = new ColorDialog();
+                    colorDialog.Color = txtTexto.SelectionColor;//<-----
+                    if (colorDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ColorSeleccionadoToolStripMenuItem.ForeColor = colorDialog.Color;
+                    }
+
+                    //txtTexto.SelectionColor = ColorSeleccionadoToolStripMenuItem.ForeColor;
+                }
+                else if (e.Button == MouseButtons.Middle)
+                {
+                    ColorDialog colorDialog = new ColorDialog();
+                    colorDialog.Color = ColorSeleccionadoToolStripMenuItem.ForeColor;//Con click ruedita agarre el color del boton
+                    if (colorDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ColorSeleccionadoToolStripMenuItem.ForeColor = colorDialog.Color;
+                    }
+                    //txtTexto.SelectionColor = ColorSeleccionadoToolStripMenuItem.ForeColor;
+                }
+            }
+        }
+
+        //Color reslatado de texto
+        private void ColorSeleccionadoResaltadoToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (validarTabs())
+            {
+                RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
+                if (e.Button == MouseButtons.Left)//Con izquiero aplico el color
+                {
+                    txtTexto.SelectionColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
+                }
+                else if (e.Button == MouseButtons.Right)//Con click derecho agarre el color de fondo del texto seleccionado
+                {
+                    ColorDialog colorDialog = new ColorDialog();
+                    colorDialog.Color = txtTexto.SelectionBackColor;//<-----
+                    if(colorDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor = colorDialog.Color;
+                    }
+                    
+                    //txtTexto.SelectionColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
+                }
+                else if (e.Button == MouseButtons.Middle)
+                {
+                    ColorDialog colorDialog = new ColorDialog();
+                    colorDialog.Color = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;//Con click ruedita agarre el color de fondo del boton
+                    if (colorDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor = colorDialog.Color;
+                    }
+
+                    //txtTexto.SelectionColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
+                }
+            }
+        }
+
+        ///
+
     }//
 }
