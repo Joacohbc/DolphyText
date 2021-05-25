@@ -1145,7 +1145,7 @@ namespace DolphyText
                 RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
                 if (e.Button == MouseButtons.Left)//Con izquiero aplico el color
                 {
-                    txtTexto.SelectionColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
+                    txtTexto.SelectionBackColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
                 }
                 else if (e.Button == MouseButtons.Right)//Con click derecho agarre el color de fondo del texto seleccionado
                 {
@@ -1156,7 +1156,7 @@ namespace DolphyText
                         ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor = colorDialog.Color;
                     }
                     
-                    //txtTexto.SelectionColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
+                    //txtTexto.SelectionBackColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
                 }
                 else if (e.Button == MouseButtons.Middle)
                 {
@@ -1167,7 +1167,7 @@ namespace DolphyText
                         ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor = colorDialog.Color;
                     }
 
-                    //txtTexto.SelectionColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
+                    //txtTexto.SelectionBackColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
                 }
             }
         }
