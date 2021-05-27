@@ -305,12 +305,12 @@ namespace DolphyNotes
                 if (this.ControlBox)
                 {
                     this.ControlBox = false;
-                    camiarPropiedad(Texto.ActivarBotones);
+                    camiarPropiedad(Texto.DesactivarBotones);
                 }
                 else
                 {
                     this.ControlBox = true;
-                    camiarPropiedad(Texto.DesactivarBotones);
+                    camiarPropiedad(Texto.ActivarBotones);
                 }
             }
             //Fijar pestania
