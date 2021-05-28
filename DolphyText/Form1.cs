@@ -61,7 +61,6 @@ namespace DolphyText
 
                 //Declaro el lector
                 StreamReader sr = new StreamReader(path);
-                bool valido = true;
                 if (Path.GetExtension(path) == ".rtf")
                 {
                     //Cargo el RTF en el RichTextBox con texto con estilo
@@ -74,26 +73,24 @@ namespace DolphyText
                 }
                 else
                 {
-                    MessageBox.Show("Extension no soportada del archivo " + Path.GetFileName(path), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    valido = false;
+                    MessageBox.Show("Extension no soportada del archivo \"" + Path.GetFileName(path) + "\"", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNuevo.Text = sr.ReadToEnd();
                 }
 
                 sr.Close();//Para que deje de usar el archivo
 
-                if (valido)//Para que no cree un tab vacio
-                {
-                    //Pongo la ruta
-                    Label ruta = nuevoLabel();
-                    ruta.Text = path;
+                //Pongo la ruta
+                Label ruta = nuevoLabel();
+                ruta.Text = path;
 
-                    TabPage nuevaTab = new TabPage(Path.GetFileName(path));
-                    nuevaTab.Name = "Nueva ventana " + (tabControl.TabCount + 1).ToString();
+                TabPage nuevaTab = new TabPage(Path.GetFileName(path));
+                nuevaTab.Name = "Nueva ventana " + (tabControl.TabCount + 1).ToString();
 
-                    //Agrego todo al Tab
-                    nuevaTab.Controls.Add(ruta);
-                    nuevaTab.Controls.Add(txtNuevo);
-                    tabControl.TabPages.Add(nuevaTab);
-                }
+                //Agrego todo al Tab
+                nuevaTab.Controls.Add(ruta);
+                nuevaTab.Controls.Add(txtNuevo);
+                tabControl.TabPages.Add(nuevaTab);
+
             }
             catch (Exception ex)
             {
@@ -646,7 +643,11 @@ namespace DolphyText
                         }
                         else
                         {
-                            MessageBox.Show("Extension no soportada", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //MessageBox.Show("Extension no soportada", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            StreamWriter sw = new StreamWriter(ruta);
+                            sw.WriteLine(txtTexto.Text);
+                            sw.Close();
+                            quitarAsterisco();
                         }
 
                     }//Si no existe el archivo
@@ -712,7 +713,13 @@ namespace DolphyText
                         }
                         else
                         {
-                            MessageBox.Show("Extension no soportada", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //MessageBox.Show("Extension no soportada", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            StreamWriter sw = new StreamWriter(guardar.FileName);
+                            sw.WriteLine(txtTexto.Text);
+                            sw.Close();
+
+                            //Quito la marca de no guardado
+                            quitarAsterisco();
                         }
 
                     }
@@ -767,8 +774,6 @@ namespace DolphyText
                         int[] indexs = { txtTexto.SelectionStart, txtTexto.SelectedText.Length };
                         txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
                         //Pongo la seccion donde estaba
-                        MessageBox.Show(indexs[0].ToString());
-                        MessageBox.Show(indexs[1].ToString());
                         txtTexto.SelectionStart = indexs[0];
                         txtTexto.SelectionLength = indexs[1];
                     }
@@ -996,30 +1001,6 @@ namespace DolphyText
             }
         }
 
-        //Atajos del txtBox
-        private void atajosDeTextoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Ctrl+B = Negrita \n" +
-                "Ctrl+U = Subrayado \n" +
-                "Ctrl+K = Italica \n" +
-                "Ctrl+T = Tachado \n" +
-                "Ctrl+Q = Quitar estilo \n" +
-                "Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
-                "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n",
-                "Atajos de texto", MessageBoxButtons.OK);
-        }
-
-        //Atajos Generales
-        private void atajosDelProgramaToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            MessageBox.Show("Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
-                "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
-                "F1 = Abrir una nota despegable \n" +
-                "F11 = Activar/Desactivar guardado final de las ventanas \n" +
-                "F12 = Salir instantaneamente(Sin preguntar ni guardar)",
-                "Atajos generales", MessageBoxButtons.OK);
-        }
-
         //Teclas
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1170,6 +1151,71 @@ namespace DolphyText
                     //txtTexto.SelectionBackColor = ColorSeleccionadoResaltadoToolStripMenuItem.ForeColor;
                 }
             }
+        }
+
+
+        //InformacioAtajos del txtBox
+        private void atajosDeTextoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ctrl+B = Negrita \n" +
+                "Ctrl+U = Subrayado \n" +
+                "Ctrl+K = Italica \n" +
+                "Ctrl+T = Tachado \n" +
+                "Ctrl+Q = Quitar estilo \n" +
+                "Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
+                "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n",
+                "Atajos de texto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        //Informacion sobre Atajos Generales
+        private void atajosDelProgramaToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
+                "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
+                "F1 = Abrir una nota despegable \n" +
+                "F11 = Activar/Desactivar guardado final de las ventanas \n" +
+                "F12 = Salir instantaneamente(Sin preguntar ni guardar)",
+                "Atajos generales", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+        
+        //Informacion sobre Formato general
+        private void formatoGeneralToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "⚈Fuente de texto, cambia la fuente del texto de la pestaña actual. \n" +
+                "⚈Color de texto, cambia el color del texto de la pestaña actual (sobreescribe si hay alguno puesto). \n" +
+                "⚈Color de fondo, cambia el color del fondo de la pestaña actual",
+                "Formato general", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        //Informacion sobre Color/Resaltado
+        private void colorResaltadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "⚈Color, puedes darle click izquiero y aplicarle al texto seleccionado el color que tenga el texto en " +
+                "\"Color\" en ese momento \n" +
+                "⚈Con click derecho puedes elegir el color que quieres aplicar, no lo aplica solo eleige(la seleccion predeterminada de color es el del texto seleccionado). \n" +
+                "⚈Con el boton central(la rueda) hace lo mismo que con el click derecho pero la seleccion predeterminada \n" +
+                "⚈Lo anterior tambien aplica con \"Resaltado\" ", "Color/Resaltado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        //Informacion de Herramietas
+        private void herramientasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+               "⚈Con \"Buscar y Remplazar\", se desplega una interfaz que permite poder buscar y remplazar texto en la ventana \n" +
+               "⚈Con \"Cambiar orden de ventanas\" se despliega una intrfaz permite cambiar el lugar de la ventana origen por la  destino, que esto tambien se puede hacer con Ctrl+T", "Herramientas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        //Informacion de Completar
+        private void completarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+              "Usar CapsLock con un texto seleccioando se puede: \n" +
+              "⚈Si lo seleccionado es una cuenta matematica se cambia por su respectiva solucion \n" +
+              "⚈Si lo seleccioando es una \"N\" o una \"n\" se intercmbia por una Ñ o ñ \n" +
+              "⚈Y automaticamente completa los caracteres: \",\',(,{,[ y de si se coloca ? o ! pone como siguiente caracter su contraparte", "Completar", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         ///

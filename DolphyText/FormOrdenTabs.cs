@@ -66,8 +66,5 @@ namespace DolphyText
                 cmbPrimerPage.Focus();
             }
         }
-
-
-
     }
 }

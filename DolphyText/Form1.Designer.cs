@@ -42,6 +42,10 @@
             this.informacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atajosDelProgramaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atajosDeTextoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formatoGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorResaltadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.completarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.abrirNotaDespegableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -58,10 +62,6 @@
             this.resultadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.formatoGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorResaltadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.completarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -172,6 +172,34 @@
             this.atajosDeTextoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.atajosDeTextoToolStripMenuItem.Text = "Atajos de texto";
             this.atajosDeTextoToolStripMenuItem.Click += new System.EventHandler(this.atajosDeTextoToolStripMenuItem_Click);
+            // 
+            // formatoGeneralToolStripMenuItem
+            // 
+            this.formatoGeneralToolStripMenuItem.Name = "formatoGeneralToolStripMenuItem";
+            this.formatoGeneralToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.formatoGeneralToolStripMenuItem.Text = "Formato general";
+            this.formatoGeneralToolStripMenuItem.Click += new System.EventHandler(this.formatoGeneralToolStripMenuItem_Click);
+            // 
+            // colorResaltadoToolStripMenuItem
+            // 
+            this.colorResaltadoToolStripMenuItem.Name = "colorResaltadoToolStripMenuItem";
+            this.colorResaltadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorResaltadoToolStripMenuItem.Text = "Color/Resaltado";
+            this.colorResaltadoToolStripMenuItem.Click += new System.EventHandler(this.colorResaltadoToolStripMenuItem_Click);
+            // 
+            // herramientasToolStripMenuItem
+            // 
+            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
+            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.herramientasToolStripMenuItem.Text = "Herramientas";
+            this.herramientasToolStripMenuItem.Click += new System.EventHandler(this.herramientasToolStripMenuItem_Click);
+            // 
+            // completarToolStripMenuItem
+            // 
+            this.completarToolStripMenuItem.Name = "completarToolStripMenuItem";
+            this.completarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.completarToolStripMenuItem.Text = "Completar";
+            this.completarToolStripMenuItem.Click += new System.EventHandler(this.completarToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -304,30 +332,6 @@
             this.notifyIcon1.Text = "DolphyText";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
-            // 
-            // formatoGeneralToolStripMenuItem
-            // 
-            this.formatoGeneralToolStripMenuItem.Name = "formatoGeneralToolStripMenuItem";
-            this.formatoGeneralToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.formatoGeneralToolStripMenuItem.Text = "Formato general";
-            // 
-            // colorResaltadoToolStripMenuItem
-            // 
-            this.colorResaltadoToolStripMenuItem.Name = "colorResaltadoToolStripMenuItem";
-            this.colorResaltadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.colorResaltadoToolStripMenuItem.Text = "Color/Resaltado";
-            // 
-            // herramientasToolStripMenuItem
-            // 
-            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
-            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.herramientasToolStripMenuItem.Text = "Herramientas";
-            // 
-            // completarToolStripMenuItem
-            // 
-            this.completarToolStripMenuItem.Name = "completarToolStripMenuItem";
-            this.completarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.completarToolStripMenuItem.Text = "Completar";
             // 
             // Form1
             // 
