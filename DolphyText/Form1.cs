@@ -425,6 +425,11 @@ namespace DolphyText
                     resultadoToolStripMenuItem.Text = "Ñ";
                     resultadoToolStripMenuItem.Visible = true;
                 }
+                else if (texto == "*")
+                {
+                    resultadoToolStripMenuItem.Text = "º";
+                    resultadoToolStripMenuItem.Visible = true;
+                }
                 else
                 {
                     resultadoToolStripMenuItem.Visible = false;
@@ -746,7 +751,7 @@ namespace DolphyText
             }
         }///
 
-        //Auto completar
+        //Completar
         private void resultadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validarTabs())
@@ -778,6 +783,14 @@ namespace DolphyText
                         txtTexto.SelectionLength = indexs[1];
                     }
                     else if (op == "N")
+                    {
+                        int[] indexs = { txtTexto.SelectionStart, txtTexto.SelectedText.Length };
+                        txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
+                        //Pongo la seccion donde estaba
+                        txtTexto.SelectionStart = indexs[0];
+                        txtTexto.SelectionLength = indexs[1];
+                    }
+                    else if (op == "*")
                     {
                         int[] indexs = { txtTexto.SelectionStart, txtTexto.SelectedText.Length };
                         txtTexto.SelectedText = resultadoToolStripMenuItem.Text;
@@ -1153,28 +1166,29 @@ namespace DolphyText
             }
         }
 
-
         //InformacioAtajos del txtBox
         private void atajosDeTextoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Ctrl+B = Negrita \n" +
-                "Ctrl+U = Subrayado \n" +
-                "Ctrl+K = Italica \n" +
-                "Ctrl+T = Tachado \n" +
-                "Ctrl+Q = Quitar estilo \n" +
-                "Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
-                "Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n",
+            MessageBox.Show(
+                "⚈Ctrl+B = Negrita \n" +
+                "⚈Ctrl+U = Subrayado \n" +
+                "⚈Ctrl+K = Italica \n" +
+                "⚈Ctrl+T = Tachado \n" +
+                "⚈Ctrl+Q = Quitar estilo \n" +
+                "⚈Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
+                "⚈Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n",
                 "Atajos de texto", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //Informacion sobre Atajos Generales
         private void atajosDelProgramaToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
-                "Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
-                "F1 = Abrir una nota despegable \n" +
-                "F11 = Activar/Desactivar guardado final de las ventanas \n" +
-                "F12 = Salir instantaneamente(Sin preguntar ni guardar)",
+            MessageBox.Show(
+                "⚈Ctrl+W = Borrar la ventana seleccionada(O doble click sobre ella) \n" +
+                "⚈Ctrl+T = Para cambiar el orden de las ventanas(Una vez en origen y otra en destino) \n" +
+                "⚈F1 = Abrir una nota despegable \n" +
+                "⚈F11 = Activar/Desactivar guardado final de las ventanas \n" +
+                "⚈F12 = Salir instantaneamente(Sin preguntar ni guardar)",
                 "Atajos generales", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
@@ -1215,7 +1229,8 @@ namespace DolphyText
               "Usar CapsLock con un texto seleccioando se puede: \n" +
               "⚈Si lo seleccionado es una cuenta matematica se cambia por su respectiva solucion \n" +
               "⚈Si lo seleccioando es una \"N\" o una \"n\" se intercmbia por una Ñ o ñ \n" +
-              "⚈Y automaticamente completa los caracteres: \",\',(,{,[ y de si se coloca ? o ! pone como siguiente caracter su contraparte", "Completar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+              "⚈Si lo seleccioando es un \"*\" se intercmbia por un \"º\" \n" +
+              "⚈Y automaticamente completa los caracteres: \" , \' , ( , { , [  y de si se coloca ? o ! pone como siguiente caracter su contraparte", "Completar", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         ///
