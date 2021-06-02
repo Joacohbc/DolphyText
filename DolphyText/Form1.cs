@@ -259,12 +259,6 @@ namespace DolphyText
         {
             if (validarTabsSinAdv())
             {
-                bool hayAsterisco = false;
-                if (tabControl.SelectedTab.Text.LastIndexOf('*') == tabControl.SelectedTab.Text.Length - 1)
-                {
-                    hayAsterisco = true;
-                }
-
                 RichTextBox txtTexto = ((RichTextBox)tabControl.SelectedTab.Controls["txtNuevo"]);
                 //Poner negrita
                 if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.B))
@@ -366,7 +360,14 @@ namespace DolphyText
                 //Quitar estilos
                 else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Q))
                 {
+                    Font vieja = txtTexto.SelectionFont;
                     txtTexto.SelectionFont = new Font(txtTexto.Font, FontStyle.Regular);
+                }
+                //Poner Negrita y Subrayado
+                else if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.D))
+                {
+                    Font vieja = txtTexto.SelectionFont;
+                    txtTexto.SelectionFont = new Font(txtTexto.Font, vieja.Style | FontStyle.Underline | FontStyle.Bold);
                 }
                 //Completar
                 else if (resultadoToolStripMenuItem.Visible)
@@ -380,10 +381,6 @@ namespace DolphyText
                     }
                 }
 
-                if (!hayAsterisco)
-                {
-                    quitarAsterisco();
-                }
             }
         }///
 
@@ -1175,6 +1172,10 @@ namespace DolphyText
                 "⚈Ctrl+K = Italica \n" +
                 "⚈Ctrl+T = Tachado \n" +
                 "⚈Ctrl+Q = Quitar estilo \n" +
+                "⚈Ctrl+D = Negrita y Subrayado \n" +
+                "⚈Ctrl+E = Texto al centro \n" +
+                "⚈Ctrl+R = Texto a la derecha \n" +
+                "⚈Ctrl+L = Texto a la izquierda \n" +
                 "⚈Ctrl+M = Convertir Mayusculas en Minusculas, y viceversa \n" +
                 "⚈Caps Lock = Autocompletar(Cuentas basicas y las Ñs) \n",
                 "Atajos de texto", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1230,7 +1231,7 @@ namespace DolphyText
               "⚈Si lo seleccionado es una cuenta matematica se cambia por su respectiva solucion \n" +
               "⚈Si lo seleccioando es una \"N\" o una \"n\" se intercmbia por una Ñ o ñ \n" +
               "⚈Si lo seleccioando es un \"*\" se intercmbia por un \"º\" \n" +
-              "⚈Y automaticamente completa los caracteres: \" , \' , ( , { , [  y de si se coloca ? o ! pone como siguiente caracter su contraparte", "Completar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+              "⚈Y automaticamente completa los caracteres: \" , \' , ( , { , [  y tambien se coloca ? o ! pone como siguiente caracter su respectiva contraparte", "Completar", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         ///
